@@ -1,7 +1,10 @@
 <!doctype html>
 <html lang="id">
   <head>
-    <meta charset="UTF-8" />
+    <meta
+      name="google-site-verification"
+      content="_WGqVcY0B63zEjwO-BTk-xIe_z9h-YU54WlDY7EJvXs"
+    />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -38,22 +41,19 @@
     <style>
       /* Base Settings with Game-like Background */
       body {
-        font-family: "Patrick Hand", cursive; /* Menggunakan Font Hand-Drawn */
-        font-size: 18px; /* Sedikit diperbesar agar lebih terbaca */
+        font-family: "Patrick Hand", cursive;
+        font-size: 18px;
         background-color: #f8f5ff;
-        /* Pola Dot Halus */
         background-image: radial-gradient(#d8b4fe 1px, transparent 1px);
         background-size: 24px 24px;
         -webkit-tap-highlight-color: transparent;
         overflow-x: hidden;
       }
 
-      /* Smooth Scrolling */
       html {
         scroll-behavior: smooth;
       }
 
-      /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
       }
@@ -69,7 +69,6 @@
         background: #7c3aed;
       }
 
-      /* Glassmorphism Navbar */
       .glass-nav {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(16px);
@@ -78,19 +77,17 @@
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
       }
 
-      /* Game Card Effect (3D Press) */
       .game-card {
         transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         border-bottom-width: 6px;
       }
       .game-card:active {
         transform: translateY(4px);
-        border-bottom-width: 0px; /* Efek tombol ditekan */
-        margin-top: 4px; /* Kompensasi tinggi */
+        border-bottom-width: 0px;
+        margin-top: 4px;
         box-shadow: none;
       }
 
-      /* Animations */
       .fade-in {
         animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
@@ -137,19 +134,36 @@
         }
       }
 
-      .animate-spin-slow {
-        animation: spin 10s linear infinite;
+      .animate-wave {
+        animation: wave 2.5s infinite;
       }
-      @keyframes spin {
-        from {
+      @keyframes wave {
+        0% {
           transform: rotate(0deg);
         }
-        to {
-          transform: rotate(360deg);
+        10% {
+          transform: rotate(14deg);
+        }
+        20% {
+          transform: rotate(-8deg);
+        }
+        30% {
+          transform: rotate(14deg);
+        }
+        40% {
+          transform: rotate(-4deg);
+        }
+        50% {
+          transform: rotate(10deg);
+        }
+        60% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(0deg);
         }
       }
 
-      /* Typing Cursor */
       .typing-cursor::after {
         content: "|";
         display: inline-block;
@@ -166,11 +180,10 @@
         }
       }
 
-      /* Floating Shapes Background */
       .shape-blob {
         position: absolute;
         filter: blur(50px);
-        z-index: -2; /* Di belakang ikon game */
+        z-index: -2;
         opacity: 0.4;
         animation: float 10s infinite alternate;
       }
@@ -181,23 +194,18 @@
         theme: {
           extend: {
             colors: {
-              primary: "#9b87f5" /* Ungu Utama Fun4Life */,
+              primary: "#9b87f5",
               primaryHover: "#7c3aed",
               secondary: "#ede9fe",
-              accent: "#f472b6" /* Pink Aksen */,
-              dark: "#2e1065" /* Ungu Sangat Gelap untuk Teks */,
+              accent: "#f472b6",
+              dark: "#2e1065",
             },
             boxShadow: {
-              game: "0 10px 0 0 rgba(0,0,0,0.1)" /* Shadow tebal ala game */,
+              game: "0 10px 0 0 rgba(0,0,0,0.1)",
               glow: "0 0 20px rgba(155, 135, 245, 0.5)",
             },
-            borderRadius: {
-              xl: "1rem",
-              "2xl": "1.5rem",
-              "3xl": "2rem",
-            },
             fontFamily: {
-              sans: ['"Patrick Hand"', "cursive"], // Override default sans font
+              sans: ['"Patrick Hand"', "cursive"],
             },
           },
         },
@@ -205,7 +213,6 @@
     </script>
   </head>
   <body>
-    <!-- FIREBASE SETUP -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
       import {
@@ -226,15 +233,24 @@
         increment,
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-      // Konfigurasi Firebase dari Environment
-      const firebaseConfig = JSON.parse(__firebase_config);
+      const firebaseConfig =
+        typeof __firebase_config !== "undefined"
+          ? JSON.parse(__firebase_config)
+          : {
+              apiKey: "AIzaSyDm7EPUYAmnob8G2m1r_Vx1Qju1KPzqH7g",
+              authDomain: "fun4life-web.firebaseapp.com",
+              projectId: "fun4life-web",
+              storageBucket: "fun4life-web.firebasestorage.app",
+              messagingSenderId: "349803874548",
+              appId: "1:349803874548:web:278748343118d2b16df6a1",
+              measurementId: "G-R0H6JR8G3B",
+            };
+
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
       const db = getFirestore(app);
-      const appId =
-        typeof __app_id !== "undefined" ? __app_id : "default-app-id";
+      const appId = typeof __app_id !== "undefined" ? __app_id : "fun4life-web";
 
-      // Ekspos ke window agar bisa dipakai di React
       window.Firebase = {
         auth,
         db,
@@ -252,7 +268,6 @@
         increment,
       };
 
-      // Autentikasi Awal dengan Fallback
       const initAuth = async () => {
         try {
           if (
@@ -264,12 +279,9 @@
             await signInAnonymously(auth);
           }
         } catch (error) {
-          console.warn("Auth token gagal, mencoba login anonim...", error);
           try {
             await signInAnonymously(auth);
-          } catch (err) {
-            console.error("Login anonim gagal total:", err);
-          }
+          } catch (err) {}
         }
       };
       initAuth();
@@ -281,7 +293,6 @@
       const { useState, useEffect, useRef } = React;
 
       // --- 1. UTILITY COMPONENTS ---
-
       const Icon = ({ icon, size = 24, className = "" }) => (
         <iconify-icon
           icon={icon}
@@ -314,306 +325,14 @@
         return (
           <div
             onClick={onClick}
-            className={`
-              game-card
-              ${colors[color]} 
-              ${borderBottomColors[color]}
-              rounded-3xl p-6 
-              cursor-pointer 
-              relative overflow-hidden 
-              ${className}
-            `}
+            className={`game-card ${colors[color]} ${borderBottomColors[color]} rounded-3xl p-6 cursor-pointer relative overflow-hidden ${className}`}
           >
             {children}
           </div>
         );
       };
 
-      const VisitorCounter = () => {
-        const [views, setViews] = useState(0);
-
-        useEffect(() => {
-          const interval = setInterval(() => {
-            if (window.Firebase) {
-              clearInterval(interval);
-              const {
-                db,
-                appId,
-                doc,
-                getDoc,
-                setDoc,
-                updateDoc,
-                increment,
-                auth,
-                onAuthStateChanged,
-                onSnapshot,
-              } = window.Firebase;
-
-              const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                  const docRef = doc(
-                    db,
-                    "artifacts",
-                    appId,
-                    "public",
-                    "data",
-                    "visitor_counter",
-                    "main",
-                  );
-
-                  const unsubscribeSnapshot = onSnapshot(
-                    docRef,
-                    (docSnap) => {
-                      if (docSnap.exists()) {
-                        setViews(docSnap.data().count || 0);
-                      }
-                    },
-                    (err) => console.error("Snapshot error:", err),
-                  );
-
-                  const sessionKey = "has_visited_" + appId;
-                  if (!sessionStorage.getItem(sessionKey)) {
-                    try {
-                      const snap = await getDoc(docRef);
-                      if (snap.exists()) {
-                        await updateDoc(docRef, { count: increment(1) });
-                      } else {
-                        await setDoc(docRef, { count: 1 });
-                      }
-                      sessionStorage.setItem(sessionKey, "true");
-                    } catch (e) {
-                      console.error("Counter error", e);
-                    }
-                  }
-                }
-              });
-            }
-          }, 500);
-          return () => clearInterval(interval);
-        }, []);
-
-        return (
-          <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border-2 border-purple-100 text-base font-bold text-primary mt-6 shadow-game backdrop-blur-sm">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span>
-              {views > 0 ? views.toLocaleString("id-ID") : "..."} Pengunjung
-              Online
-            </span>
-          </div>
-        );
-      };
-
-      const CommentSection = () => {
-        const [comments, setComments] = useState([]);
-        const [name, setName] = useState("");
-        const [msg, setMsg] = useState("");
-        const [isLoading, setIsLoading] = useState(true);
-        const [isSubmitting, setIsSubmitting] = useState(false);
-        const [status, setStatus] = useState("connecting");
-
-        useEffect(() => {
-          const interval = setInterval(() => {
-            if (window.Firebase) {
-              clearInterval(interval);
-              const {
-                db,
-                appId,
-                collection,
-                onSnapshot,
-                auth,
-                onAuthStateChanged,
-              } = window.Firebase;
-
-              const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  setStatus("connected");
-                  const q = collection(
-                    db,
-                    "artifacts",
-                    appId,
-                    "public",
-                    "data",
-                    "comments",
-                  );
-
-                  const unsubscribeSnapshot = onSnapshot(
-                    q,
-                    (snapshot) => {
-                      const loaded = snapshot.docs.map((d) => d.data());
-                      loaded.sort(
-                        (a, b) => new Date(b.isoDate) - new Date(a.isoDate),
-                      );
-                      setComments(loaded);
-                      setIsLoading(false);
-                    },
-                    (error) => {
-                      console.error("Error loading comments:", error);
-                      setStatus("error");
-                      setIsLoading(false);
-                    },
-                  );
-                  return () => unsubscribeSnapshot();
-                } else {
-                  // Waiting for auth
-                }
-              });
-            }
-          }, 500);
-
-          return () => clearInterval(interval);
-        }, []);
-
-        const handleSubmit = async (e) => {
-          e.preventDefault();
-          if (!name.trim() || !msg.trim()) return;
-
-          if (status !== "connected") {
-            alert(
-              "Koneksi belum siap. Coba refresh halaman jika ini terus terjadi.",
-            );
-            return;
-          }
-
-          setIsSubmitting(true);
-          try {
-            const { db, appId, collection, addDoc } = window.Firebase;
-            const newComment = {
-              name,
-              msg,
-              date: new Date().toLocaleDateString("id-ID"),
-              isoDate: new Date().toISOString(),
-            };
-
-            await addDoc(
-              collection(db, "artifacts", appId, "public", "data", "comments"),
-              newComment,
-            );
-            setName("");
-            setMsg("");
-          } catch (e) {
-            console.error("Gagal mengirim:", e);
-            alert("Gagal mengirim pesan. Pastikan internet lancar.");
-          } finally {
-            setIsSubmitting(false);
-          }
-        };
-
-        return (
-          <div className="w-full max-w-4xl mx-auto mt-16 mb-10 fade-in px-4 md:px-0 relative z-10">
-            <h2 className="text-3xl font-bold text-dark text-center mb-6 flex items-center justify-center gap-2 bg-white/50 py-2 rounded-full w-fit mx-auto px-6 backdrop-blur-sm border border-white">
-              <Icon
-                icon="lucide:message-circle-heart"
-                className="text-primary"
-              />{" "}
-              Ruang Sapa & Diskusi
-            </h2>
-            <div className="bg-white/90 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-8 shadow-xl border-4 border-white flex flex-col md:flex-row gap-8">
-              <div className="w-full md:w-1/3">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold text-primary text-xl uppercase tracking-wide">
-                    Kirim Pesan
-                  </h3>
-                  <div className="flex items-center gap-1.5 bg-slate-100 px-2 py-1 rounded-full">
-                    <div
-                      className={`w-2 h-2 rounded-full ${status === "connected" ? "bg-green-500 animate-pulse" : status === "error" ? "bg-red-500" : "bg-yellow-500 animate-pulse"}`}
-                    ></div>
-                    <span className="text-[12px] text-slate-500 font-medium">
-                      {status === "connected"
-                        ? "Siap"
-                        : status === "error"
-                          ? "Error"
-                          : "Konek..."}
-                    </span>
-                  </div>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="Nama Kamu"
-                    className="w-full p-3.5 rounded-2xl bg-slate-50 border-2 border-slate-100 text-lg focus:outline-none focus:border-primary focus:bg-white transition font-bold text-slate-600 placeholder:font-normal"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    maxLength={20}
-                    required
-                    disabled={isSubmitting || status !== "connected"}
-                  />
-                  <textarea
-                    placeholder="Tulis pesan semangat..."
-                    className="w-full p-3.5 rounded-2xl bg-slate-50 border-2 border-slate-100 text-lg focus:outline-none focus:border-primary focus:bg-white transition h-24 resize-none font-medium text-slate-600 placeholder:font-normal"
-                    value={msg}
-                    onChange={(e) => setMsg(e.target.value)}
-                    maxLength={150}
-                    required
-                    disabled={isSubmitting || status !== "connected"}
-                  ></textarea>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting || status !== "connected"}
-                    className={`game-card w-full text-white py-3.5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 border-b-4 ${
-                      isSubmitting || status !== "connected"
-                        ? "bg-slate-400 border-b-slate-500 cursor-not-allowed"
-                        : "bg-dark border-b-black hover:bg-primary hover:border-b-primaryHover"
-                    }`}
-                  >
-                    {isSubmitting ? "Mengirim..." : "Kirim"}
-                    {!isSubmitting && <Icon icon="lucide:send" size={20} />}
-                  </button>
-                </form>
-              </div>
-              <div className="w-full md:w-2/3 md:border-l-2 border-slate-100 md:pl-8">
-                <h3 className="font-bold text-primary mb-4 text-xl uppercase tracking-wide">
-                  Pesan Terbaru
-                </h3>
-                <div className="space-y-3 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
-                  {isLoading ? (
-                    <div className="text-center py-8 text-slate-400 text-lg animate-pulse flex flex-col items-center">
-                      <Icon
-                        icon="lucide:loader-2"
-                        className="animate-spin mb-2"
-                        size={28}
-                      />
-                      Memuat percakapan...
-                    </div>
-                  ) : comments.length > 0 ? (
-                    comments.map((c, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-purple-50 p-4 rounded-2xl border border-purple-100 animate-in fade-in slide-in-from-bottom-2"
-                      >
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="font-bold text-primary text-lg">
-                            {c.name}
-                          </span>
-                          <span className="text-sm text-slate-400 font-medium bg-white px-2 py-0.5 rounded-full">
-                            {c.date}
-                          </span>
-                        </div>
-                        <p className="text-slate-700 text-lg leading-relaxed">
-                          {c.msg}
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center text-slate-400 text-lg py-8 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-200">
-                      <p>Belum ada pesan.</p>
-                      <p className="text-base mt-1">
-                        Jadilah yang pertama menyapa!
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      };
-
       // --- 2. LAYOUT COMPONENTS ---
-
       const Layout = ({
         children,
         navigate,
@@ -622,12 +341,10 @@
         setSearchTerm,
       }) => (
         <div className="min-h-screen flex flex-col relative overflow-hidden">
-          {/* Background Decorations */}
           <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
             <div className="shape-blob w-64 h-64 bg-purple-300 rounded-full top-[-10%] left-[-10%] mix-blend-multiply opacity-20"></div>
             <div className="shape-blob w-72 h-72 bg-pink-200 rounded-full top-[20%] right-[-15%] mix-blend-multiply animation-delay-2000 opacity-20"></div>
             <div className="shape-blob w-48 h-48 bg-blue-200 rounded-full bottom-[-5%] left-[20%] mix-blend-multiply animation-delay-4000 opacity-20"></div>
-
             <div className="absolute top-[15%] left-[5%] text-purple-300 animate-float opacity-30">
               <Icon icon="lucide:joystick" size={64} />
             </div>
@@ -637,26 +354,10 @@
             <div className="absolute bottom-[20%] left-[8%] text-blue-300 animate-bounce opacity-20">
               <Icon icon="lucide:ghost" size={56} />
             </div>
-            <div className="absolute bottom-[10%] right-[20%] text-yellow-300 animate-pulse-slow opacity-40">
-              <Icon icon="lucide:trophy" size={72} />
-            </div>
-            <div className="absolute top-[50%] left-[2%] text-green-300 animate-float opacity-30">
-              <Icon icon="lucide:sword" size={60} />
-            </div>
-            <div className="absolute top-[40%] right-[3%] text-red-300 animate-float-delayed opacity-20">
-              <Icon icon="lucide:heart" size={48} />
-            </div>
-            <div className="absolute top-[5%] left-[40%] text-orange-300 animate-spin-slow opacity-30">
-              <Icon icon="lucide:star" size={40} />
-            </div>
-            <div className="absolute bottom-[40%] right-[10%] text-indigo-300 opacity-20 rotate-12">
-              <Icon icon="lucide:smile" size={64} />
-            </div>
           </div>
 
-          {/* Navbar */}
           <nav className="fixed top-0 w-full glass-nav z-50 h-20 transition-all">
-            <div className="max-w-6xl w-full mx-auto px-4 md:px-8 h-full flex justify-between items-center">
+            <div className="max-w-7xl w-full mx-auto px-4 md:px-8 h-full flex justify-between items-center">
               <div
                 className="flex items-center gap-3 cursor-pointer group select-none"
                 onClick={() => navigate("home")}
@@ -668,8 +369,6 @@
                   Fun4Life
                 </span>
               </div>
-
-              {/* Desktop Search */}
               <div className="hidden md:flex items-center bg-white rounded-full px-5 py-3 border-2 border-purple-100 focus-within:border-primary focus-within:shadow-lg transition-all w-80">
                 <Icon
                   icon="lucide:search"
@@ -699,15 +398,36 @@
             </div>
           </nav>
 
-          {/* Main Content */}
-          <main className="flex-grow pt-28 md:pt-36 px-4 md:px-8 max-w-6xl mx-auto w-full relative z-10 fade-in pb-10">
-            {activePage !== "home" && activePage !== "feature-locked" && (
+          <main className="flex-grow pt-28 md:pt-32 px-4 md:px-8 max-w-7xl mx-auto w-full relative z-10 fade-in pb-10">
+            {activePage !== "home" &&
+              activePage !== "efikasi-diri" &&
+              activePage !== "feature-locked" && (
+                <button
+                  onClick={() =>
+                    navigate(
+                      activePage.includes("game-") ||
+                        activePage === "finish-reward" ||
+                        activePage === "video-inspiratif" ||
+                        activePage === "ruang-refleksi" ||
+                        activePage === "curhat-anonym" ||
+                        activePage === "materi-pd"
+                        ? "efikasi-diri"
+                        : "home",
+                    )
+                  }
+                  className="game-card mb-8 flex items-center gap-2 text-slate-600 hover:text-white hover:bg-primary font-bold transition-all group bg-white px-5 py-2.5 rounded-full w-fit border-b-4 border-slate-200 hover:border-b-primaryHover text-lg"
+                >
+                  <Icon icon="lucide:arrow-left" size={24} />{" "}
+                  <span>Kembali</span>
+                </button>
+              )}
+
+            {activePage === "efikasi-diri" && (
               <button
-                onClick={() => navigate("back")}
-                className="game-card mb-8 flex items-center gap-2 text-slate-600 hover:text-white hover:bg-primary font-bold transition-all group bg-white px-5 py-2.5 rounded-full w-fit border-b-4 border-slate-200 hover:border-b-primaryHover text-lg"
+                onClick={() => navigate("home")}
+                className="game-card mb-4 flex items-center gap-2 text-slate-600 hover:text-white hover:bg-primary font-bold transition-all group bg-white px-5 py-2.5 rounded-full w-fit border-b-4 border-slate-200 hover:border-b-primaryHover text-lg"
               >
-                <Icon icon="lucide:arrow-left" size={24} />
-                <span>Kembali</span>
+                <Icon icon="lucide:arrow-left" size={24} /> <span>Beranda</span>
               </button>
             )}
 
@@ -724,7 +444,6 @@
             {children}
           </main>
 
-          {/* Footer */}
           <footer className="py-10 text-center text-slate-500 text-lg border-t-2 border-purple-100 bg-white/60 backdrop-blur-md mt-auto relative z-10">
             <div className="container mx-auto px-4">
               <p className="font-bold mb-2 text-dark">
@@ -733,7 +452,6 @@
               <p className="text-base font-medium opacity-70">
                 Dibuat oleh Mahasiswa Bimbingan Konseling
               </p>
-              <VisitorCounter />
             </div>
           </footer>
         </div>
@@ -774,7 +492,6 @@
       );
 
       // --- 3. PAGE COMPONENTS ---
-
       const Home = ({ navigate, searchTerm, setSearchTerm }) => {
         const [textIndex, setTextIndex] = useState(0);
         const fullText =
@@ -787,7 +504,6 @@
           }
         }, [textIndex]);
 
-        // Database Layanan
         const services = [
           {
             id: "bidang-pribadi",
@@ -806,18 +522,6 @@
                 className: "top-3 right-3",
                 delay: "0s",
                 size: 24,
-              },
-              {
-                icon: "lucide:sparkles",
-                className: "bottom-20 left-4",
-                delay: "1.5s",
-                size: 20,
-              },
-              {
-                icon: "lucide:zap",
-                className: "top-1/2 left-2",
-                delay: "2.5s",
-                size: 16,
               },
             ],
           },
@@ -839,18 +543,6 @@
                 delay: "0.5s",
                 size: 22,
               },
-              {
-                icon: "lucide:thumbs-up",
-                className: "bottom-24 right-3",
-                delay: "2s",
-                size: 18,
-              },
-              {
-                icon: "lucide:users",
-                className: "top-1/2 right-2",
-                delay: "1s",
-                size: 20,
-              },
             ],
           },
           {
@@ -871,18 +563,6 @@
                 delay: "0.2s",
                 size: 24,
               },
-              {
-                icon: "lucide:lightbulb",
-                className: "bottom-20 left-3",
-                delay: "1.2s",
-                size: 20,
-              },
-              {
-                icon: "lucide:star",
-                className: "top-12 right-3",
-                delay: "2.2s",
-                size: 16,
-              },
             ],
           },
           {
@@ -902,18 +582,6 @@
                 className: "top-3 left-3",
                 delay: "0.8s",
                 size: 24,
-              },
-              {
-                icon: "lucide:map-pin",
-                className: "bottom-24 right-4",
-                delay: "1.8s",
-                size: 20,
-              },
-              {
-                icon: "lucide:flag",
-                className: "top-1/2 left-2",
-                delay: "2.8s",
-                size: 18,
               },
             ],
           },
@@ -963,8 +631,6 @@
                     <span className="typing-cursor"></span>
                   </p>
                 </div>
-
-                {/* Mobile Search Bar */}
                 <div className="md:hidden w-full max-w-xs mx-auto mt-6">
                   <div className="relative group">
                     <input
@@ -1001,15 +667,13 @@
             )}
 
             {filteredServices.length > 0 && (
-              <div className="w-full mb-12 md:mb-16 fade-in">
+              <div className="w-full mb-12 md:mb-16 fade-in max-w-5xl">
                 {!searchTerm && (
                   <h2 className="text-3xl md:text-5xl font-black text-dark text-center mb-8 md:mb-12 uppercase tracking-wider flex items-center justify-center gap-3">
                     <Icon icon="lucide:swords" className="text-primary" /> Pilih
                     Petualanganmu
                   </h2>
                 )}
-
-                {/* GAME STYLE GRID CARDS */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                   {filteredServices.map((s) => (
                     <div
@@ -1023,77 +687,35 @@
                           : navigate(s.route)
                       }
                       className={`
-                        group relative
-                        bg-white rounded-[2.5rem] p-1.5
-                        border-b-8 transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02]
-                        ${
-                          s.color === "purple"
-                            ? "border-purple-300 shadow-[0_10px_0px_rgba(168,85,247,0.3)]"
-                            : s.color === "blue"
-                              ? "border-blue-300 shadow-[0_10px_0px_rgba(59,130,246,0.3)]"
-                              : s.color === "green"
-                                ? "border-green-300 shadow-[0_10px_0px_rgba(34,197,94,0.3)]"
-                                : "border-pink-300 shadow-[0_10px_0px_rgba(236,72,153,0.3)]"
-                        }
+                        group relative bg-white rounded-[2.5rem] p-1.5 border-b-8 transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] 
+                        ${s.color === "purple" ? "border-purple-300 shadow-[0_10px_0px_rgba(168,85,247,0.3)]" : s.color === "blue" ? "border-blue-300 shadow-[0_10px_0px_rgba(59,130,246,0.3)]" : s.color === "green" ? "border-green-300 shadow-[0_10px_0px_rgba(34,197,94,0.3)]" : "border-pink-300 shadow-[0_10px_0px_rgba(236,72,153,0.3)]"}
                       `}
                     >
-                      {/* Inner Card Content */}
                       <div
                         className={`
-                        h-full w-full rounded-[2.2rem] p-5 flex flex-col items-center text-center relative z-10 overflow-hidden
-                        ${
-                          s.color === "purple"
-                            ? "bg-gradient-to-b from-purple-50 to-white"
-                            : s.color === "blue"
-                              ? "bg-gradient-to-b from-blue-50 to-white"
-                              : s.color === "green"
-                                ? "bg-gradient-to-b from-green-50 to-white"
-                                : "bg-gradient-to-b from-pink-50 to-white"
-                        }
+                        h-full w-full rounded-[2.2rem] p-5 flex flex-col items-center text-center relative z-10 overflow-hidden 
+                        ${s.color === "purple" ? "bg-gradient-to-b from-purple-50 to-white" : s.color === "blue" ? "bg-gradient-to-b from-blue-50 to-white" : s.color === "green" ? "bg-gradient-to-b from-green-50 to-white" : "bg-gradient-to-b from-pink-50 to-white"} 
                         ${s.status === "locked" ? "grayscale-[0.5] opacity-90" : ""}
                       `}
                       >
-                        {/* DEKORASI BACKGROUND LUCU (MELAYANG & TERSEBAR) */}
                         {s.decos &&
                           s.decos.map((deco, idx) => (
                             <div
                               key={idx}
-                              className={`absolute animate-float ${deco.className} ${
-                                s.color === "purple"
-                                  ? "text-purple-300/60"
-                                  : s.color === "blue"
-                                    ? "text-blue-300/60"
-                                    : s.color === "green"
-                                      ? "text-green-300/60"
-                                      : "text-pink-300/60"
-                              }`}
+                              className={`absolute animate-float ${deco.className} ${s.color === "purple" ? "text-purple-300/60" : s.color === "blue" ? "text-blue-300/60" : s.color === "green" ? "text-green-300/60" : "text-pink-300/60"}`}
                               style={{ animationDelay: deco.delay }}
                             >
                               <Icon icon={deco.icon} size={deco.size} />
                             </div>
                           ))}
-
-                        {/* Top Badge: Level & XP */}
                         <div className="w-full flex justify-end items-center mb-4 relative z-20 min-h-[24px]">
                           {s.level && (
                             <span
-                              className={`
-                                    text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-widest border shadow-sm mr-auto
-                                    ${
-                                      s.color === "purple"
-                                        ? "bg-purple-500 text-white border-purple-600"
-                                        : s.color === "blue"
-                                          ? "bg-blue-500 text-white border-blue-600"
-                                          : s.color === "green"
-                                            ? "bg-green-500 text-white border-green-600"
-                                            : "bg-pink-500 text-white border-pink-600"
-                                    }
-                                `}
+                              className={`text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-widest border shadow-sm mr-auto ${s.color === "purple" ? "bg-purple-500 text-white border-purple-600" : s.color === "blue" ? "bg-blue-500 text-white border-blue-600" : s.color === "green" ? "bg-green-500 text-white border-green-600" : "bg-pink-500 text-white border-pink-600"}`}
                             >
                               {s.level}
                             </span>
                           )}
-
                           {s.status === "locked" ? (
                             <div className="bg-slate-200 p-1 rounded-full">
                               <Icon
@@ -1113,73 +735,31 @@
                             </span>
                           ) : null}
                         </div>
-
-                        {/* Icon Container (Big & Cute) */}
                         <div
                           className={`
-                            relative w-24 h-24 mb-4 flex items-center justify-center rounded-[2rem] group-hover:scale-110 transition-transform duration-300 shadow-lg border-4 border-white
-                            ${
-                              s.color === "purple"
-                                ? "bg-purple-400 shadow-purple-200"
-                                : s.color === "blue"
-                                  ? "bg-blue-400 shadow-blue-200"
-                                  : s.color === "green"
-                                    ? "bg-green-400 shadow-green-200"
-                                    : "bg-pink-400 shadow-pink-200"
-                            }
+                          relative w-24 h-24 mb-4 flex items-center justify-center rounded-[2rem] group-hover:scale-110 transition-transform duration-300 shadow-lg border-4 border-white 
+                          ${s.color === "purple" ? "bg-purple-400 shadow-purple-200" : s.color === "blue" ? "bg-blue-400 shadow-blue-200" : s.color === "green" ? "bg-green-400 shadow-green-200" : "bg-pink-400 shadow-pink-200"}
                         `}
                         >
                           <div className="text-white drop-shadow-md">
                             <Icon icon={s.icon} size={48} />
                           </div>
-
-                          {/* Shiny effect on icon */}
                           <div className="absolute top-2 right-4 w-4 h-4 bg-white opacity-30 rounded-full blur-[2px]"></div>
                         </div>
-
-                        {/* Text Content */}
                         <h3
-                          className={`text-2xl font-black mb-0 leading-none tracking-tight
-                             ${
-                               s.color === "purple"
-                                 ? "text-purple-600"
-                                 : s.color === "blue"
-                                   ? "text-blue-600"
-                                   : s.color === "green"
-                                     ? "text-green-600"
-                                     : "text-pink-600"
-                             }
-                        `}
+                          className={`text-2xl font-black mb-0 leading-none tracking-tight ${s.color === "purple" ? "text-purple-600" : s.color === "blue" ? "text-blue-600" : s.color === "green" ? "text-green-600" : "text-pink-600"}`}
                         >
                           {s.title}
                         </h3>
-                        {s.subtitle && (
-                          <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 mt-1">
-                            {s.subtitle}
-                          </p>
-                        )}
-
                         <p
-                          className={`text-slate-500 text-sm font-bold leading-tight mb-6 px-1 z-20 relative ${!s.subtitle ? "mt-3" : ""}`}
+                          className={`text-slate-500 text-sm font-bold leading-tight mb-6 px-1 z-20 relative mt-3`}
                         >
                           {s.desc}
                         </p>
-
-                        {/* Action Button Area */}
                         <div
                           className={`
-                            w-full mt-auto py-3 rounded-xl font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 transition-all shadow-sm border-b-4 z-20 relative
-                            ${
-                              s.status === "locked"
-                                ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed"
-                                : s.color === "purple"
-                                  ? "bg-purple-100 text-purple-600 border-purple-200 group-hover:bg-purple-500 group-hover:text-white group-hover:border-purple-600"
-                                  : s.color === "blue"
-                                    ? "bg-blue-100 text-blue-600 border-blue-200 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-600"
-                                    : s.color === "green"
-                                      ? "bg-green-100 text-green-600 border-green-200 group-hover:bg-green-500 group-hover:text-white group-hover:border-green-600"
-                                      : "bg-pink-100 text-pink-600 border-pink-200 group-hover:bg-pink-500 group-hover:text-white group-hover:border-pink-600"
-                            }
+                          w-full mt-auto py-3 rounded-xl font-black text-sm uppercase tracking-wide flex items-center justify-center gap-2 transition-all shadow-sm border-b-4 z-20 relative 
+                          ${s.status === "locked" ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed" : s.color === "purple" ? "bg-purple-100 text-purple-600 border-purple-200 group-hover:bg-purple-500 group-hover:text-white group-hover:border-purple-600" : s.color === "blue" ? "bg-blue-100 text-blue-600 border-blue-200 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-600" : s.color === "green" ? "bg-green-100 text-green-600 border-green-200 group-hover:bg-green-500 group-hover:text-white group-hover:border-green-600" : "bg-pink-100 text-pink-600 border-pink-200 group-hover:bg-pink-500 group-hover:text-white group-hover:border-pink-600"}
                         `}
                         >
                           {s.status === "locked"
@@ -1193,70 +773,227 @@
               </div>
             )}
 
-            {/* CURHAT ANONYM MENU (UPDATED - CUTE & FUN) */}
             {!searchTerm && (
-              <div className="w-full max-w-5xl mb-12 fade-in">
-                <div
-                  onClick={() =>
-                    window.open(
-                      "https://docs.google.com/forms/d/e/1FAIpQLSeCi53GQvR1iKY7n70WpvhB9i4ekyGFA_aaYilMQK7dsFYKMQ/viewform?usp=header",
-                      "_blank",
-                    )
-                  }
-                  className="relative overflow-hidden bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 rounded-[2.5rem] p-1.5 shadow-xl cursor-pointer group transform transition-all hover:scale-[1.02] hover:shadow-2xl"
-                >
-                  {/* Decorative Background Elements */}
-                  <div className="absolute top-0 left-0 w-full h-full overflow-hidden rounded-[2.2rem] pointer-events-none">
-                    <div className="absolute top-[-20%] right-[-10%] text-white/20 animate-float-delayed">
-                      <Icon icon="lucide:cloud" size={140} />
-                    </div>
-                    <div className="absolute bottom-[-20%] left-[-5%] text-white/20 animate-float">
-                      <Icon icon="lucide:stars" size={100} />
-                    </div>
-                    <div className="absolute top-[40%] left-[20%] text-white/10">
-                      <Icon icon="lucide:heart" size={40} />
-                    </div>
-                  </div>
-
-                  <div className="bg-white/10 backdrop-blur-sm rounded-[2.2rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-2 border-white/30 relative z-10">
-                    <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                      {/* CUTE ICON CONTAINER */}
-                      <div className="bg-white text-pink-500 w-24 h-24 rounded-[2rem] flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300 border-4 border-white/50">
-                        <Icon
-                          icon="lucide:ghost"
-                          size={48}
-                          className="animate-bounce"
-                        />
+              <>
+                {/* CURHAT ANONYM */}
+                <div className="w-full max-w-5xl mb-6 md:mb-8 fade-in">
+                  <div
+                    onClick={() =>
+                      window.open(
+                        "https://docs.google.com/forms/d/e/1FAIpQLSeCi53GQvR1iKY7n70WpvhB9i4ekyGFA_aaYilMQK7dsFYKMQ/viewform?usp=header",
+                        "_blank",
+                      )
+                    }
+                    className="relative overflow-hidden bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 rounded-[2.5rem] p-1.5 shadow-xl cursor-pointer group transform transition-all hover:scale-[1.02] hover:shadow-2xl"
+                  >
+                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden rounded-[2.2rem] pointer-events-none">
+                      <div className="absolute top-[-20%] right-[-10%] text-white/20 animate-float-delayed">
+                        <Icon icon="lucide:cloud" size={140} />
                       </div>
-                      <div className="text-white text-center md:text-left">
-                        <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
-                          <h3 className="text-3xl md:text-4xl font-black drop-shadow-md">
-                            Curhat Anonym
-                          </h3>
-                          <span className="bg-yellow-400 text-yellow-900 text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm border border-yellow-200 rotate-[-5deg]">
-                            RAHASIA!
-                          </span>
+                      <div className="absolute bottom-[-20%] left-[-5%] text-white/20 animate-float">
+                        <Icon icon="lucide:stars" size={100} />
+                      </div>
+                      <div className="absolute top-[40%] left-[20%] text-white/10">
+                        <Icon icon="lucide:heart" size={40} />
+                      </div>
+                    </div>
+
+                    <div className="bg-white/10 backdrop-blur-sm rounded-[2.2rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-2 border-white/30 relative z-10">
+                      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                        <div className="bg-white text-pink-500 w-24 h-24 rounded-[2rem] flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform duration-300 border-4 border-white/50">
+                          <Icon
+                            icon="lucide:ghost"
+                            size={48}
+                            className="animate-bounce"
+                          />
                         </div>
-                        <p className="text-white font-bold text-sm md:text-lg leading-snug opacity-95 max-w-md">
-                          Punya rahasia? Cerita di sini aja! <br />
-                          <span className="text-white/80 text-xs font-medium">
-                            Identitasmu aman terjaga 100% 🔒
-                          </span>
-                        </p>
+                        <div className="text-white text-center md:text-left">
+                          <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
+                            <h3 className="text-3xl md:text-4xl font-black drop-shadow-md">
+                              Curhat Anonym
+                            </h3>
+                            <span className="bg-yellow-400 text-yellow-900 text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm border border-yellow-200 rotate-[-5deg]">
+                              RAHASIA!
+                            </span>
+                          </div>
+                          <p className="text-white font-bold text-sm md:text-lg leading-snug opacity-95 max-w-md">
+                            Punya rahasia? Cerita di sini aja! <br />
+                            <span className="text-white/80 text-xs font-medium">
+                              Identitasmu aman terjaga 100% 🔒
+                            </span>
+                          </p>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Call to Action Button Look */}
-                    <div className="bg-white text-purple-600 px-6 py-3 rounded-2xl font-black shadow-lg flex items-center gap-2 group-hover:bg-purple-50 transition-colors transform group-hover:translate-x-1 border-b-4 border-purple-200">
-                      Mulai Cerita <Icon icon="lucide:arrow-right" size={20} />
+                      <div className="bg-white text-purple-600 px-6 py-3 rounded-2xl font-black shadow-lg flex items-center gap-2 group-hover:bg-purple-50 transition-colors transform group-hover:translate-x-1 border-b-4 border-purple-200">
+                        Mulai Cerita{" "}
+                        <Icon icon="lucide:arrow-right" size={20} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+
+                {/* RUANG REFLEKSI & WIDGETS */}
+                <div className="w-full max-w-5xl mb-12 fade-in grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* LEFT PANEL: Ruang Refleksi */}
+                  <div className="lg:col-span-2 bg-[#fffdf0] rounded-[2.5rem] border-2 border-yellow-100 p-6 md:p-8 flex flex-col sm:flex-row items-center gap-6 md:gap-8 shadow-sm relative overflow-hidden group">
+                    <div className="relative w-40 h-40 shrink-0 flex items-center justify-center">
+                      <div className="w-28 h-36 bg-purple-300 rounded-r-2xl rounded-l-md shadow-lg border-l-8 border-purple-400 relative flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-transform duration-500 z-10">
+                        <Icon
+                          icon="lucide:heart"
+                          size={40}
+                          className="text-purple-500 fill-current drop-shadow-sm"
+                        />
+                        <div className="absolute left-2 top-4 bottom-4 w-1 flex flex-col justify-between">
+                          {[...Array(5)].map((_, i) => (
+                            <div
+                              key={i}
+                              className="w-4 h-1.5 bg-white rounded-full -ml-3 border border-purple-200 shadow-sm rotate-6"
+                            ></div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="absolute right-1 bottom-6 w-4 h-24 bg-indigo-500 rounded-full rotate-45 border-b-4 border-indigo-700 shadow-md z-20 group-hover:rotate-12 transition-transform duration-500">
+                        <div className="absolute -bottom-2 left-0.5 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[10px] border-l-transparent border-r-transparent border-t-slate-300"></div>
+                      </div>
+                      <div className="absolute -bottom-2 -left-2 flex flex-col items-center z-30">
+                        <Icon
+                          icon="lucide:flower-2"
+                          size={36}
+                          className="text-green-500 mb-[-12px] drop-shadow-md origin-bottom animate-pulse-slow"
+                        />
+                        <div className="w-10 h-7 bg-pink-400 rounded-b-lg rounded-t-sm border-b-4 border-pink-600 shadow-md"></div>
+                      </div>
+                      <Icon
+                        icon="lucide:sparkles"
+                        size={24}
+                        className="absolute top-0 right-4 text-yellow-400 animate-pulse"
+                      />
+                      <Icon
+                        icon="lucide:sparkle"
+                        size={16}
+                        className="absolute bottom-4 left-4 text-yellow-400 animate-ping"
+                      />
+                    </div>
+
+                    <div className="flex-1 text-center sm:text-left z-20">
+                      <h3 className="text-2xl md:text-3xl font-black text-dark mb-2 flex items-center justify-center sm:justify-start gap-2">
+                        Ruang Refleksi{" "}
+                        <Icon
+                          icon="lucide:sparkles"
+                          className="text-yellow-400"
+                        />
+                      </h3>
+                      <p className="text-slate-600 text-sm md:text-base font-medium mb-1">
+                        Luangkan waktu sejenak untuk memahami dirimu lebih
+                        dalam.
+                      </p>
+                      <p className="text-slate-600 text-sm md:text-base font-medium mb-6">
+                        Tulis perasaan, pikiran, dan pengalamanmu hari ini.
+                      </p>
+
+                      <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6">
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1.5">
+                          <div className="bg-purple-100/80 border border-purple-200 text-purple-500 w-10 h-10 flex items-center justify-center rounded-xl mb-1">
+                            <Icon icon="lucide:lock" size={20} />
+                          </div>
+                          <span className="text-[10px] md:text-[11px] font-bold text-slate-500 leading-tight">
+                            Hanya kamu
+                            <br />
+                            yang bisa melihat
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1.5">
+                          <div className="bg-yellow-100/80 border border-yellow-200 text-yellow-500 w-10 h-10 flex items-center justify-center rounded-xl mb-1">
+                            <Icon icon="lucide:smile" size={20} />
+                          </div>
+                          <span className="text-[10px] md:text-[11px] font-bold text-slate-500 leading-tight">
+                            Kenali dirimu
+                            <br />
+                            lebih baik
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1.5">
+                          <div className="bg-indigo-100/80 border border-indigo-200 text-indigo-500 w-10 h-10 flex items-center justify-center rounded-xl mb-1">
+                            <Icon icon="lucide:bar-chart-2" size={20} />
+                          </div>
+                          <span className="text-[10px] md:text-[11px] font-bold text-slate-500 leading-tight">
+                            Pantau
+                            <br />
+                            perkembanganmu
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-center sm:justify-end">
+                        <button
+                          onClick={() => navigate("ruang-refleksi")}
+                          className="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-black px-6 py-3 rounded-full flex items-center gap-2 shadow-sm transition-all transform hover:scale-105 border-b-4 border-yellow-600 hover:border-yellow-700"
+                        >
+                          Mulai Refleksi{" "}
+                          <Icon icon="lucide:arrow-right" size={20} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT PANEL: Widgets Stack */}
+                  <div className="lg:col-span-1 flex flex-col gap-6">
+                    <div className="bg-white rounded-[2rem] border-2 border-slate-100 p-6 shadow-sm flex flex-col justify-between flex-1 group hover:border-pink-200 transition-colors">
+                      <div>
+                        <h4 className="font-black text-dark text-lg flex items-center gap-2 mb-1">
+                          <Icon icon="twemoji:heart-decoration" size={20} />{" "}
+                          Mood Hari Ini
+                        </h4>
+                        <p className="text-slate-500 text-[13px] md:text-sm font-medium mb-4">
+                          Bagaimana perasaanmu hari ini?
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center bg-slate-50 p-3 md:p-4 rounded-2xl border border-slate-100">
+                        {["🤩", "😐", "😢", "😣", "😓"].map((emoji, i) => (
+                          <button
+                            key={i}
+                            onClick={() =>
+                              navigate("feature-locked", {
+                                title: "Mood Tracker",
+                                icon: "lucide:smile",
+                              })
+                            }
+                            className="text-2xl md:text-3xl hover:scale-125 transition-transform origin-bottom drop-shadow-sm filter hover:grayscale-0 grayscale-[0.3]"
+                            title="Pilih mood ini"
+                          >
+                            {emoji}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-[2rem] border-2 border-slate-100 p-6 shadow-sm flex flex-col justify-center flex-1 group hover:border-purple-200 transition-colors relative overflow-hidden">
+                      <Icon
+                        icon="lucide:quote"
+                        size={80}
+                        className="absolute -top-4 -right-4 text-purple-50 opacity-50 rotate-12"
+                      />
+                      <div className="relative z-10">
+                        <h4 className="font-black text-dark text-lg flex items-center gap-2 mb-3">
+                          <div className="bg-purple-100 text-primary w-8 h-8 flex items-center justify-center rounded-lg">
+                            <Icon icon="lucide:quote" size={16} />
+                          </div>
+                          Quote Hari Ini
+                        </h4>
+                        <p className="text-slate-600 font-bold italic text-[15px] md:text-base leading-relaxed">
+                          "Percaya diri bukan berarti sempurna, tapi berani
+                          menjadi diri sendiri."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
 
             {filteredHelp.length > 0 && (
-              <div className="w-full max-w-5xl bg-white/80 p-6 md:p-10 rounded-[3rem] border-4 border-white shadow-xl backdrop-blur-sm fade-in relative">
+              <div className="w-full max-w-5xl bg-white/80 p-6 md:p-10 rounded-[3rem] border-4 border-white shadow-xl backdrop-blur-sm fade-in relative mt-10">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 px-6 py-2 rounded-full font-black text-sm uppercase tracking-wider shadow-game border-2 border-yellow-500 flex items-center gap-2">
                   <Icon icon="lucide:help-circle" size={16} /> Pusat Bantuan
                 </div>
@@ -1279,7 +1016,6 @@
                 </div>
               </div>
             )}
-            {!searchTerm && <CommentSection />}
           </div>
         );
       };
@@ -1305,8 +1041,9 @@
           { title: "Harga Diri", icon: "lucide:star", status: "soon" },
           { title: "Kontrol Diri", icon: "lucide:target", status: "soon" },
         ];
+
         return (
-          <div className="space-y-8 md:space-y-12 fade-in">
+          <div className="space-y-8 md:space-y-12 fade-in max-w-5xl mx-auto">
             <div className="text-center bg-white/60 p-8 md:p-12 rounded-[3rem] border-4 border-white shadow-lg backdrop-blur-sm">
               <h2 className="text-4xl md:text-6xl font-black text-primary mb-3">
                 Bidang Pribadi
@@ -1329,32 +1066,16 @@
                         ? navigate(item.route)
                         : navigate("feature-locked", item)
                     }
-                    className={`
-                        game-card
-                        flex flex-col items-center justify-center text-center gap-3 md:gap-4 py-6 md:py-8 rounded-3xl border-2 transition-all duration-200 cursor-pointer
-                        ${
-                          item.status === "ready"
-                            ? "bg-white border-purple-200 border-b-purple-300 shadow-sm hover:border-primary hover:border-b-primaryHover"
-                            : "bg-slate-50 border-slate-200 border-b-slate-300 opacity-80"
-                        }
-                    `}
+                    className={`game-card flex flex-col items-center justify-center text-center gap-3 md:gap-4 py-6 md:py-8 rounded-3xl border-2 transition-all duration-200 cursor-pointer ${item.status === "ready" ? "bg-white border-purple-200 border-b-purple-300 shadow-sm hover:border-primary hover:border-b-primaryHover" : "bg-slate-50 border-slate-200 border-b-slate-300 opacity-80"}`}
                   >
                     <div
-                      className={`p-4 rounded-2xl flex items-center justify-center transition-colors ${
-                        item.status === "ready"
-                          ? "bg-primary text-white shadow-game border-2 border-white"
-                          : "bg-slate-200 text-slate-400"
-                      }`}
+                      className={`p-4 rounded-2xl flex items-center justify-center transition-colors ${item.status === "ready" ? "bg-primary text-white shadow-game border-2 border-white" : "bg-slate-200 text-slate-400"}`}
                     >
                       <Icon icon={item.icon} size={40} />
                     </div>
                     <div className="px-2">
                       <h4
-                        className={`font-bold text-sm md:text-lg leading-tight ${
-                          item.status === "ready"
-                            ? "text-dark"
-                            : "text-slate-500"
-                        }`}
+                        className={`font-bold text-sm md:text-lg leading-tight ${item.status === "ready" ? "text-dark" : "text-slate-500"}`}
                       >
                         {item.title}
                       </h4>
@@ -1376,679 +1097,437 @@
         );
       };
 
-      // --- COMPONENT: GAME MAGNITUDE ---
-      const GameMagnitude = ({ navigate }) => {
-        const MAGNITUDE_PROMPTS = {
-          think: [
-            "Kalau PR Matematika bisa berubah jadi monster, menurutmu dia bentuknya seperti apa? dan senjata apa yang akan kamu pakai untuk menyerangnya?",
-            "Apa alasan utamamu kamu saat menyontek? Malas mikir, atau Takut salah?",
-            "Sebutkan satu tugas sekolah yang pernah bikin kamu begadang/stres berat!",
-            "Kalau disuruh maju ke depan mengerjakan soal, kamu pilih soal gampang tapi malu-maluin, atau soal susah tapi terlihat keren?",
-            "Menurutmu, siapa guru killer yang membuatmu enggan masuk kelasnya?",
-            "Berapa menit waktu maksimal kamu bisa fokus belajar pelajaran susah sebelum akhirnya buka HP?",
-            "Apa strategi rahasiamu kalau ketemu soal ujian yang benar-benar blank nggak tahu jawabannya?",
-          ],
-          act: [
-            "Cari satu istilah sulit di buku paketmu, cari artinya di Google, lalu jelaskan ke teman sebelahmu.",
-            "Buka buku pelajaran yang paling kamu benci. Baca 1 paragraf dengan suara lantang!",
-            'Minta temanmu memberikan satu pertanyaan pelajaran acak. Jawab sebisa mungkin, jangan bilang "nggak tahu".',
-            "Pinjam catatan teman yang tulisannya paling rapi, baca selama 1 menit untuk menghapalkannya.",
-            "Ajak temanmu lomba adu cepat membuka halaman tertentu di buku paket, lalu cermati dan jelaskan didepan semua temanmu.",
-            "Tulis harapanmu lalu tempelkan didahi sampai istirahat",
-            "Minta temanmu menanyakan satu pelajaran yang dia tidak mengerti, lalu kamu cari tahu jawabannya, dan jelaskan padanya seolah kamu seorang guru",
-          ],
-        };
-
-        const [mode, setMode] = useState(null);
-        const [card, setCard] = useState(null);
-        const [animating, setAnimating] = useState(false);
-        const [availableIndices, setAvailableIndices] = useState({
-          think: [...Array(7).keys()],
-          act: [...Array(7).keys()],
-        });
-        const timeoutRef = useRef(null);
-
-        useEffect(() => {
-          return () => {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-          };
-        }, []);
-
-        const generate = (m) => {
-          if (animating) return;
-          setAnimating(true);
-          if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-          timeoutRef.current = setTimeout(() => {
-            let current = [...availableIndices[m]];
-            if (current.length === 0)
-              current = [...Array(MAGNITUDE_PROMPTS[m].length).keys()];
-
-            const rand = Math.floor(Math.random() * current.length);
-            const idx = current[rand];
-
-            setAvailableIndices((prev) => ({
-              ...prev,
-              [m]: current.filter((i) => i !== idx),
-            }));
-
-            setCard(MAGNITUDE_PROMPTS[m][idx]);
-            setAnimating(false);
-            timeoutRef.current = null;
-          }, 300);
-        };
-
-        const play = (m) => {
-          setMode(m);
-          generate(m);
-        };
-
-        if (!mode) {
-          return (
-            <div className="max-w-3xl mx-auto text-center pt-8 fade-in px-4">
-              <h2 className="text-4xl md:text-5xl font-black text-primary mb-2 text-center">
-                Pilih Tantangan Magnitude
-              </h2>
-              <p className="text-xl md:text-2xl font-bold text-slate-500 mb-8 uppercase tracking-wide">
-                Uji Nyali Tugas
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <button
-                  onClick={() => play("think")}
-                  className="game-card bg-indigo-50 border-2 border-indigo-200 border-b-indigo-400 active:border-b-0 hover:bg-indigo-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 right-0 p-6 opacity-10 text-indigo-600 group-hover:scale-110 transition-transform">
-                    <Icon icon="lucide:brain-circuit" size={100} />
-                  </div>
-                  <div className="bg-indigo-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-200 border-2 border-white relative z-10">
-                    <Icon icon="lucide:brain-circuit" size={40} />
-                  </div>
-                  <h3 className="text-3xl font-black text-indigo-900 mb-2 relative z-10">
-                    Pikir (Think)
-                  </h3>
-                  <p className="text-indigo-700 text-lg font-medium relative z-10">
-                    Refleksi tentang kesulitan tugas.
-                  </p>
-                </button>
-                <button
-                  onClick={() => play("act")}
-                  className="game-card bg-rose-50 border-2 border-rose-200 border-b-rose-400 active:border-b-0 hover:bg-rose-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 right-0 p-6 opacity-10 text-rose-600 group-hover:scale-110 transition-transform">
-                    <Icon icon="lucide:biceps-flexed" size={100} />
-                  </div>
-                  <div className="bg-rose-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-rose-200 border-2 border-white relative z-10">
-                    <Icon icon="lucide:biceps-flexed" size={40} />
-                  </div>
-                  <h3 className="text-3xl font-black text-rose-900 mb-2 relative z-10">
-                    Lakukan (Act)
-                  </h3>
-                  <p className="text-rose-700 text-lg font-medium relative z-10">
-                    Tantangan aksi nyata.
-                  </p>
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        return (
-          <div className="max-w-xl mx-auto pt-4 fade-in px-4">
-            <div className="flex flex-col items-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-dark flex items-center gap-2 mb-2 justify-center">
-                Mode:{" "}
-                <span
-                  className={`px-4 py-1.5 rounded-full text-xl uppercase font-black tracking-wide ${mode === "think" ? "bg-indigo-100 text-indigo-700 border border-indigo-200" : "bg-rose-100 text-rose-700 border border-rose-200"}`}
-                >
-                  {mode}
-                </span>
-              </h2>
-              <button
-                onClick={() => setMode(null)}
-                className="text-lg font-bold text-slate-400 hover:text-primary transition-colors mt-2"
-              >
-                Ganti Mode
-              </button>
-            </div>
-
-            <div
-              className={`relative overflow-hidden rounded-[2.5rem] p-10 min-h-[350px] flex flex-col items-center justify-center text-center shadow-xl border-4 border-white transition-all duration-500 ${mode === "think" ? "bg-indigo-600" : "bg-rose-500"}`}
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-10 text-white pointer-events-none">
-                <Icon icon="lucide:quote" size={150} />
-              </div>
-              <div
-                className={`transition-all duration-500 transform ${animating ? "opacity-0 translate-y-10 scale-90" : "opacity-100 translate-y-0 scale-100"}`}
-              >
-                <p className="text-3xl md:text-4xl font-black text-white leading-relaxed relative z-10 drop-shadow-md">
-                  "{card}"
-                </p>
-              </div>
-              {availableIndices[mode].length === 0 && (
-                <div className="mt-6 bg-white/20 px-4 py-1 rounded-full text-white text-sm font-bold backdrop-blur-sm border border-white/30">
-                  Kartu diulang
-                </div>
-              )}
-            </div>
-
-            <div className="flex justify-center mt-10">
-              <button
-                onClick={() => generate(mode)}
-                className={`game-card px-10 py-4 rounded-2xl font-black text-white shadow-lg flex items-center gap-3 transform active:scale-95 transition-all border-b-4 ${mode === "think" ? "bg-indigo-600 border-b-indigo-800 hover:bg-indigo-700" : "bg-rose-500 border-b-rose-800 hover:bg-rose-600"}`}
-              >
-                <Icon icon="lucide:shuffle" size={24} />{" "}
-                {mode === "think" ? "Pertanyaan Lain" : "Tantangan Lain"}
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      // --- COMPONENT: GAME STRENGTH ---
-      const GameStrength = ({ navigate }) => {
-        const STRENGTH_PROMPTS = {
-          think: [
-            'Ceritakan kejadian "gagal" paling memalukan di sekolah, yang sekarang bisa kamu tertawakan.',
-            "Kalau kamu dikritik guru di depan kelas, apa yang kamu rasakan? (Marah, malu, atau tertantang?)",
-            'Apa "lagu kebangsaan" atau playlist yang kamu dengar saat lagi sedih biar semangat lagi?',
-            "Pernah nggak kamu merasa ingin berhenti sekolah? Apa yang bikin kamu tetap bertahan sampai hari ini?",
-            "Seberapa besar pengaruh mood kamu terhadap semangat belajarmu? (Skala 1-10).",
-            "Kapan terakhir kali kamu menangis atau marah karena urusan sekolah?",
-            "Kalau kamu punya kesempatan bicara 1 menit dengan dirimu di masa lalu yang sedang sedih, kamu mau bilang apa?",
-          ],
-          act: [
-            "Pasang wajah paling konyol/jelek ke arah teman-temanmu selama 10 detik. (suruh temanmu tahan tawa).",
-            'Minta teman di sebelah kananmu memberikan satu kritik jujur tentangmu. Jawab dengan "Terima kasih".',
-            'Kirim pesan singkat (WA/Surat) ke orang tua/wali, bilang "Terima kasih sudah biayain aku sekolah".',
-            "Berpura-puralah menjadi motivator terkenal selama 1 menit, beri nasihat ke teman-temanmu.",
-            "Tulis satu ketakutanmu di kertas, remas kertasnya sekuat tenaga, lalu buang ke tong sampah.",
-            "tutup mata lalu Maafkan satu orang yang pernah bikin kamu kesal. (Ucapkan dalam hati).",
-            "Sapa dan ajak ngobrol satu orang di kelas yang jarang kamu ajak ngobrol.",
-          ],
-        };
-
-        const [mode, setMode] = useState(null);
-        const [card, setCard] = useState(null);
-        const [animating, setAnimating] = useState(false);
-        const [availableIndices, setAvailableIndices] = useState({
-          think: [...Array(7).keys()],
-          act: [...Array(7).keys()],
-        });
-        const timeoutRef = useRef(null);
-
-        useEffect(() => {
-          return () => {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-          };
-        }, []);
-
-        const generate = (m) => {
-          if (animating) return;
-          setAnimating(true);
-          if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-          timeoutRef.current = setTimeout(() => {
-            let current = [...availableIndices[m]];
-            if (current.length === 0)
-              current = [...Array(STRENGTH_PROMPTS[m].length).keys()];
-
-            const rand = Math.floor(Math.random() * current.length);
-            const idx = current[rand];
-
-            setAvailableIndices((prev) => ({
-              ...prev,
-              [m]: current.filter((i) => i !== idx),
-            }));
-
-            setCard(STRENGTH_PROMPTS[m][idx]);
-            setAnimating(false);
-            timeoutRef.current = null;
-          }, 300);
-        };
-
-        const play = (m) => {
-          setMode(m);
-          generate(m);
-        };
-
-        if (!mode) {
-          return (
-            <div className="max-w-3xl mx-auto text-center pt-8 fade-in px-4">
-              <h2 className="text-4xl md:text-5xl font-black text-primary mb-2 text-center">
-                Pilih Tantangan Strength
-              </h2>
-              <p className="text-xl md:text-2xl font-bold text-slate-500 mb-8 uppercase tracking-wide">
-                Mental Baja
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <button
-                  onClick={() => play("think")}
-                  className="game-card bg-cyan-50 border-2 border-cyan-200 border-b-cyan-400 active:border-b-0 hover:bg-cyan-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 right-0 p-6 opacity-10 text-cyan-600 group-hover:scale-110 transition-transform">
-                    <Icon icon="lucide:heart-handshake" size={100} />
-                  </div>
-                  <div className="bg-cyan-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-200 border-2 border-white relative z-10">
-                    <Icon icon="lucide:heart-handshake" size={40} />
-                  </div>
-                  <h3 className="text-3xl font-black text-cyan-900 mb-2 relative z-10">
-                    Pikir (Think)
-                  </h3>
-                  <p className="text-cyan-700 text-lg font-medium relative z-10">
-                    Refleksi tentang kekuatan emosi.
-                  </p>
-                </button>
-                <button
-                  onClick={() => play("act")}
-                  className="game-card bg-pink-50 border-2 border-pink-200 border-b-pink-400 active:border-b-0 hover:bg-pink-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 right-0 p-6 opacity-10 text-pink-600 group-hover:scale-110 transition-transform">
-                    <Icon icon="lucide:zap" size={100} />
-                  </div>
-                  <div className="bg-pink-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-pink-200 border-2 border-white relative z-10">
-                    <Icon icon="lucide:zap" size={40} />
-                  </div>
-                  <h3 className="text-3xl font-black text-pink-900 mb-2 relative z-10">
-                    Lakukan (Act)
-                  </h3>
-                  <p className="text-pink-700 text-lg font-medium relative z-10">
-                    Tantangan mental juara.
-                  </p>
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        return (
-          <div className="max-w-xl mx-auto pt-4 fade-in px-4">
-            <div className="flex flex-col items-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-dark flex items-center gap-2 mb-2 justify-center">
-                Mode:{" "}
-                <span
-                  className={`px-4 py-1.5 rounded-full text-xl uppercase font-black tracking-wide ${mode === "think" ? "bg-cyan-100 text-cyan-700 border border-cyan-200" : "bg-pink-100 text-pink-700 border border-pink-200"}`}
-                >
-                  {mode}
-                </span>
-              </h2>
-              <button
-                onClick={() => setMode(null)}
-                className="text-lg font-bold text-slate-400 hover:text-primary transition-colors mt-2"
-              >
-                Ganti Mode
-              </button>
-            </div>
-
-            <div
-              className={`relative overflow-hidden rounded-[2.5rem] p-10 min-h-[350px] flex flex-col items-center justify-center text-center shadow-xl border-4 border-white transition-all duration-500 ${mode === "think" ? "bg-cyan-600" : "bg-pink-500"}`}
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-10 text-white pointer-events-none">
-                <Icon icon="lucide:quote" size={150} />
-              </div>
-              <div
-                className={`transition-all duration-500 transform ${animating ? "opacity-0 translate-y-10 scale-90" : "opacity-100 translate-y-0 scale-100"}`}
-              >
-                <p className="text-3xl md:text-4xl font-black text-white leading-relaxed relative z-10 drop-shadow-md">
-                  "{card}"
-                </p>
-              </div>
-              {availableIndices[mode].length === 0 && (
-                <div className="mt-6 bg-white/20 px-4 py-1 rounded-full text-white text-sm font-bold backdrop-blur-sm border border-white/30">
-                  Kartu diulang
-                </div>
-              )}
-            </div>
-
-            <div className="flex justify-center mt-10">
-              <button
-                onClick={() => generate(mode)}
-                className={`game-card px-10 py-4 rounded-2xl font-black text-white shadow-lg flex items-center gap-3 transform active:scale-95 transition-all border-b-4 ${mode === "think" ? "bg-cyan-600 border-b-cyan-800 hover:bg-cyan-700" : "bg-pink-500 border-b-pink-800 hover:bg-pink-600"}`}
-              >
-                <Icon icon="lucide:shuffle" size={24} />{" "}
-                {mode === "think" ? "Pertanyaan Lain" : "Tantangan Lain"}
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      // --- COMPONENT: GAME GENERALITY ---
-      const GameGenerality = ({ navigate }) => {
-        const GENERALITY_PROMPTS = {
-          think: [
-            "Kalau tidak ada sekolah, kamu ingin belajar tentang apa setiap hari?",
-            "Apa satu bakat unikmu yang teman sekelas belum banyak yang tahu?",
-            "Kalau kamu jadi Kepala Sekolah, ekstrakurikuler apa yang wajib ada?",
-            "Sebutkan satu content creator / Youtuber favoritmu. Apa sisi positif dia yang bisa kamu tiru di sekolah?",
-            "Menurutmu, skill apa yang lebih penting di masa depan?",
-            "Pernah nggak kamu memimpin sebuah tim (di game/olahraga)? Apa rasanya dan bagaimana caranya?",
-            "Kalau kamu harus cari uang sendiri mulai besok, skill apa yang akan kamu jual?",
-          ],
-          act: [
-            "Tulis nama lengkapmu menggunakan tangan kiri (atau tangan non-dominan).",
-            "Promosikan benda di mejamu (pulpen/penghapus) layaknya Salesman profesional selama 1 menit.",
-            "Coba jelaskan hobi kamu ke teman yang tidak mengerti hobi itu, sampai dia paham.",
-            "Sebutkan 5 kegunaan pensil selain untuk menulis (Uji kreativitas).",
-            "Tebak cita-cita teman di sebelah kirimu, tanyakan apakah tebakanmu benar.",
-            "Ajarkan satu trik lifehack atau tips ngerjain tugas cepat ke temanmu yang mereka gatau.",
-            "Akting menjadi guru galak selama 30 detik. (Eksplorasi peran).",
-          ],
-        };
-
-        const [mode, setMode] = useState(null);
-        const [card, setCard] = useState(null);
-        const [animating, setAnimating] = useState(false);
-        const [availableIndices, setAvailableIndices] = useState({
-          think: [...Array(7).keys()],
-          act: [...Array(7).keys()],
-        });
-        const timeoutRef = useRef(null);
-
-        useEffect(() => {
-          return () => {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-          };
-        }, []);
-
-        const generate = (m) => {
-          if (animating) return;
-          setAnimating(true);
-          if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-          timeoutRef.current = setTimeout(() => {
-            let current = [...availableIndices[m]];
-            if (current.length === 0)
-              current = [...Array(GENERALITY_PROMPTS[m].length).keys()];
-
-            const rand = Math.floor(Math.random() * current.length);
-            const idx = current[rand];
-
-            setAvailableIndices((prev) => ({
-              ...prev,
-              [m]: current.filter((i) => i !== idx),
-            }));
-
-            setCard(GENERALITY_PROMPTS[m][idx]);
-            setAnimating(false);
-            timeoutRef.current = null;
-          }, 300);
-        };
-
-        const play = (m) => {
-          setMode(m);
-          generate(m);
-        };
-
-        if (!mode) {
-          return (
-            <div className="max-w-3xl mx-auto text-center pt-8 fade-in px-4">
-              <h2 className="text-4xl md:text-5xl font-black text-primary mb-2 text-center">
-                Pilih Tantangan Generality
-              </h2>
-              <p className="text-xl md:text-2xl font-bold text-slate-500 mb-8 uppercase tracking-wide">
-                Jago Banyak Medan
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <button
-                  onClick={() => play("think")}
-                  className="game-card bg-emerald-50 border-2 border-emerald-200 border-b-emerald-400 active:border-b-0 hover:bg-emerald-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 right-0 p-6 opacity-10 text-emerald-600 group-hover:scale-110 transition-transform">
-                    <Icon icon="lucide:lightbulb" size={100} />
-                  </div>
-                  <div className="bg-emerald-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-emerald-200 border-2 border-white relative z-10">
-                    <Icon icon="lucide:lightbulb" size={40} />
-                  </div>
-                  <h3 className="text-3xl font-black text-emerald-900 mb-2 relative z-10">
-                    Pikir (Think)
-                  </h3>
-                  <p className="text-emerald-700 text-lg font-medium relative z-10">
-                    Eksplorasi ide dan wawasan.
-                  </p>
-                </button>
-                <button
-                  onClick={() => play("act")}
-                  className="game-card bg-amber-50 border-2 border-amber-200 border-b-amber-400 active:border-b-0 hover:bg-amber-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 right-0 p-6 opacity-10 text-amber-600 group-hover:scale-110 transition-transform">
-                    <Icon icon="lucide:palette" size={100} />
-                  </div>
-                  <div className="bg-amber-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-amber-200 border-2 border-white relative z-10">
-                    <Icon icon="lucide:palette" size={40} />
-                  </div>
-                  <h3 className="text-3xl font-black text-amber-900 mb-2 relative z-10">
-                    Lakukan (Act)
-                  </h3>
-                  <p className="text-amber-700 text-lg font-medium relative z-10">
-                    Uji kreativitas dan bakat.
-                  </p>
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        return (
-          <div className="max-w-xl mx-auto pt-4 fade-in px-4">
-            <div className="flex flex-col items-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-dark flex items-center gap-2 mb-2 justify-center">
-                Mode:{" "}
-                <span
-                  className={`px-4 py-1.5 rounded-full text-xl uppercase font-black tracking-wide ${mode === "think" ? "bg-emerald-100 text-emerald-700 border border-emerald-200" : "bg-amber-100 text-amber-700 border border-amber-200"}`}
-                >
-                  {mode}
-                </span>
-              </h2>
-              <button
-                onClick={() => setMode(null)}
-                className="text-base font-bold text-slate-400 hover:text-primary transition-colors"
-              >
-                Ganti Mode
-              </button>
-            </div>
-
-            <div
-              className={`relative overflow-hidden rounded-[2.5rem] p-10 min-h-[350px] flex flex-col items-center justify-center text-center shadow-xl border-4 border-white transition-all duration-500 ${mode === "think" ? "bg-emerald-600" : "bg-amber-500"}`}
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-10 text-white pointer-events-none">
-                <Icon icon="lucide:quote" size={150} />
-              </div>
-              <div
-                className={`transition-all duration-500 transform ${animating ? "opacity-0 translate-y-10 scale-90" : "opacity-100 translate-y-0 scale-100"}`}
-              >
-                <p className="text-3xl md:text-4xl font-black text-white leading-relaxed relative z-10 drop-shadow-md">
-                  "{card}"
-                </p>
-              </div>
-              {availableIndices[mode].length === 0 && (
-                <div className="mt-6 bg-white/20 px-4 py-1 rounded-full text-white text-sm font-bold backdrop-blur-sm border border-white/30">
-                  Kartu diulang
-                </div>
-              )}
-            </div>
-
-            <div className="flex justify-center mt-10">
-              <button
-                onClick={() => generate(mode)}
-                className={`game-card px-10 py-4 rounded-2xl font-black text-white shadow-lg flex items-center gap-3 transform active:scale-95 transition-all border-b-4 ${mode === "think" ? "bg-emerald-600 border-b-emerald-800 hover:bg-emerald-700" : "bg-amber-500 border-b-amber-800 hover:bg-amber-600"}`}
-              >
-                <Icon icon="lucide:shuffle" size={24} />{" "}
-                {mode === "think" ? "Pertanyaan Lain" : "Tantangan Lain"}
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      // --- COMPONENT: CURHAT ANONYM (GOOGLE FORM EMBED) ---
-      const CurhatAnonym = ({ navigate }) => {
-        // Link Google Form yang diberikan (ditambah parameter embedded=true agar pas di layar)
-        const formUrl =
-          "https://docs.google.com/forms/d/e/1FAIpQLSeCi53GQvR1iKY7n70WpvhB9i4ekyGFA_aaYilMQK7dsFYKMQ/viewform?embedded=true";
-        const directLink =
-          "https://docs.google.com/forms/d/e/1FAIpQLSeCi53GQvR1iKY7n70WpvhB9i4ekyGFA_aaYilMQK7dsFYKMQ/viewform?usp=header";
-
-        return (
-          <div className="w-full max-w-5xl mx-auto px-2 md:px-4 py-4 fade-in">
-            {/* Header Navigasi */}
-            <div className="flex justify-end items-center mb-4 px-2">
-              {/* Tombol alternatif jika form tidak muncul */}
-              <a
-                href={directLink}
-                target="_blank"
-                className="text-sm font-bold text-primary hover:underline flex items-center gap-1 bg-white/50 px-3 py-1 rounded-lg backdrop-blur-sm"
-              >
-                Buka di Tab Baru <Icon icon="lucide:external-link" size={14} />
-              </a>
-            </div>
-
-            {/* Form Container */}
-            <div className="bg-white rounded-[2.5rem] shadow-xl border-4 border-white overflow-hidden relative h-[80vh]">
-              {/* Loading State / Background Placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center bg-purple-50 z-0">
-                <div className="text-center text-purple-300 animate-pulse">
-                  <Icon
-                    icon="lucide:ghost"
-                    size={48}
-                    className="mx-auto mb-2"
-                  />
-                  <p className="font-bold">Memuat Formulir...</p>
-                </div>
-              </div>
-
-              {/* Google Form Iframe */}
-              <iframe
-                src={formUrl}
-                className="relative z-10 w-full h-full"
-                frameBorder="0"
-                marginHeight="0"
-                marginWidth="0"
-                title="Formulir Curhat Anonym"
-              >
-                Memuat…
-              </iframe>
-            </div>
-          </div>
-        );
-      };
-
+      // --- COMPONENT: KepercayaanDiri (Efikasi Diri) ---
       const KepercayaanDiri = ({ navigate }) => {
-        const menuItems = [
+        const videos = [
           {
-            id: "materi",
-            title: "Materi Dasar",
-            sub: "Pengenalan",
-            desc: "Pengenalan Efikasi Diri",
-            color: "purple",
-            icon: "lucide:book-open",
-            route: "materi-pd",
-            level: null, // Tutorial / Intro biasanya tidak ada level
+            id: "BkaEcGZgIAg",
+            title: "Cara Menjadi Jurnalis ala Najwa Shihab",
+            duration: "07:12",
+            thumbnail: "https://img.youtube.com/vi/BkaEcGZgIAg/hqdefault.jpg",
           },
           {
-            id: "magnitude",
-            title: "Magnitude",
-            sub: "", // Teks "Uji Nyali Tugas" Dihapus
-            desc: "Berani Menghadapi Tantangan",
-            color: "blue",
-            icon: "lucide:bar-chart-3",
-            route: "game-magnitude",
-            level: "MUDAH", // LEVEL 1 -> MUDAH
+            id: "qRi9drHS09A",
+            title: "Berani Memulai",
+            duration: "05:12",
+            thumbnail: "https://img.youtube.com/vi/qRi9drHS09A/hqdefault.jpg",
           },
           {
-            id: "strength",
+            id: "R81TpCMdAws",
+            title: "Bangkit dari Kegagalan",
+            duration: "04:48",
+            thumbnail: "https://img.youtube.com/vi/R81TpCMdAws/hqdefault.jpg",
+          },
+          {
+            id: "pzP33yqnr70",
+            title: "Terus Melangkah",
+            duration: "06:03",
+            thumbnail: "https://img.youtube.com/vi/pzP33yqnr70/hqdefault.jpg",
+          },
+        ];
+
+        const [activeVideo, setActiveVideo] = useState(videos[0]);
+
+        // Nodes for the Winding Path
+        const mapNodes = [
+          {
+            id: 1,
             title: "Strength",
-            sub: "", // Teks "Mental Baja" Dihapus
             desc: "Kekuatan keyakinan saat menghadapi tekanan",
-            color: "pink",
             icon: "lucide:zap",
+            color: "pink",
             route: "game-strength",
-            level: "SEDANG", // LEVEL 2 -> SEDANG
+            yOffset: "translate-y-[20px]",
+            badge: "bg-pink-500",
+            cardBorder:
+              "border-pink-200 border-b-pink-300 hover:border-pink-400 hover:border-b-pink-500",
+            iconBg: "text-pink-500 bg-pink-100",
           },
           {
-            id: "generality",
+            id: 2,
             title: "Generality",
-            sub: "", // Teks "Jago Banyak Medan" Dihapus
             desc: "Penerapan keyakinan di berbagai situasi",
-            color: "green",
             icon: "lucide:globe",
+            color: "blue",
             route: "game-generality",
-            level: "SULIT", // LEVEL 3 -> SULIT
+            yOffset: "translate-y-[-20px]",
+            badge: "bg-blue-500",
+            cardBorder:
+              "border-blue-200 border-b-blue-300 hover:border-blue-400 hover:border-b-blue-500",
+            iconBg: "text-blue-500 bg-blue-100",
+          },
+          {
+            id: 3,
+            title: "Magnitude",
+            desc: "Berani menghadapi tantangan",
+            icon: "lucide:bar-chart-3",
+            color: "green",
+            route: "game-magnitude",
+            yOffset: "translate-y-[20px]",
+            badge: "bg-green-500",
+            cardBorder:
+              "border-green-200 border-b-green-300 hover:border-green-400 hover:border-b-green-500",
+            iconBg: "text-green-500 bg-green-100",
+          },
+          {
+            id: 4,
+            title: "Finish",
+            desc: "Selamat! Kamu hebat!",
+            icon: "lucide:trophy",
+            color: "yellow",
+            route: "finish-reward",
+            yOffset: "translate-y-[-20px]",
+            badge: "bg-amber-400",
+            cardBorder:
+              "border-amber-200 border-b-amber-300 hover:border-amber-400 hover:border-b-amber-500",
+            iconBg: "text-amber-500 bg-amber-100",
+          },
+        ];
+
+        // Bottom Menu Cards
+        const bottomCards = [
+          {
+            title: "Materi",
+            desc: "Pahami konsep self-efficacy dengan materi interaktif.",
+            button: "Lihat Materi",
+            route: "materi-pd",
+            icon: "lucide:book-open",
+            bg: "bg-purple-50",
+            border: "border-purple-200",
+            btn: "bg-purple-500 border-b-purple-700 hover:bg-purple-600",
+            iconColor: "text-purple-500",
           },
         ];
 
         return (
-          <div className="space-y-10 fade-in pb-10">
-            <div className="text-center py-8 md:py-12 bg-white/60 rounded-[3rem] border-4 border-white shadow-lg backdrop-blur-sm">
-              <h2 className="text-4xl md:text-6xl font-black text-dark mb-4 md:mb-6 tracking-tight">
-                Efikasi Diri
+          <div className="w-full max-w-7xl mx-auto space-y-8 fade-in pb-10">
+            {/* Header Top Left */}
+            <div className="px-2 md:px-6 pt-4">
+              <h2 className="text-4xl md:text-5xl font-black text-dark flex items-center gap-3 mb-2">
+                Hai, Siswa!{" "}
+                <span className="animate-wave origin-bottom-right inline-block">
+                  👋
+                </span>
               </h2>
+              <p className="text-slate-500 font-bold text-lg md:text-xl">
+                Yuk, selesaikan setiap level <br className="hidden md:block" />{" "}
+                dan jadi{" "}
+                <span className="text-primary underline decoration-wavy decoration-primary">
+                  versi terbaik dirimu!
+                </span>
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {menuItems.map((item) => (
-                <Card
-                  key={item.id}
-                  color={item.color}
-                  onClick={() =>
-                    item.route === "feature-locked"
-                      ? navigate("feature-locked", {
-                          title: item.title,
-                          icon: item.icon,
-                        })
-                      : navigate(item.route)
-                  }
-                  className="flex items-center gap-6 p-6 md:p-8 relative group overflow-hidden"
-                >
-                  {/* LEVEL BADGE (POJOK KANAN ATAS) */}
-                  {item.level && (
-                    <div className="absolute top-0 right-0">
-                      <div
-                        className={`
-                           text-white text-[10px] md:text-xs font-black px-4 py-1.5 rounded-bl-2xl backdrop-blur-md border-b-2 border-l-2 border-white/20 shadow-sm z-20 tracking-widest group-hover:bg-white transition-colors
-                           ${
-                             item.level === "MUDAH"
-                               ? "bg-green-500/80 group-hover:text-green-600"
-                               : item.level === "SEDANG"
-                                 ? "bg-yellow-500/80 group-hover:text-yellow-600"
-                                 : "bg-red-500/80 group-hover:text-red-600"
-                           }
-                        `}
+            {/* Map Section (Winding Road) */}
+            <div className="w-full bg-[#fdfbf7] border-2 border-slate-100 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-12 overflow-hidden relative shadow-sm">
+              <Icon
+                icon="lucide:star"
+                size={32}
+                className="absolute top-10 left-1/4 text-yellow-300 animate-pulse"
+              />
+              <Icon
+                icon="lucide:heart"
+                size={24}
+                className="absolute bottom-16 left-1/3 text-pink-300 animate-bounce"
+              />
+              <Icon
+                icon="lucide:cloud"
+                size={64}
+                className="absolute top-12 right-1/4 text-blue-200 animate-float"
+              />
+              <Icon
+                icon="lucide:sparkles"
+                size={40}
+                className="absolute bottom-10 right-1/4 text-green-300 animate-pulse"
+              />
+
+              {/* Scrollable Map Container */}
+              <div className="w-full overflow-x-auto custom-scrollbar pb-12 pt-8">
+                <div className="min-w-[1000px] h-[350px] relative flex justify-between items-center px-[80px]">
+                  {/* SVG Track */}
+                  <svg
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[200px] pointer-events-none z-0"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 1000 200"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="mapLineGrad"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
                       >
-                        {item.level}
+                        <stop offset="0%" stopColor="#fbcfe8" />
+                        <stop offset="33%" stopColor="#bfdbfe" />
+                        <stop offset="66%" stopColor="#bbf7d0" />
+                        <stop offset="100%" stopColor="#fef08a" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M 0 150 C 200 250, 300 50, 500 150 C 700 250, 800 50, 1000 150"
+                      fill="none"
+                      stroke="url(#mapLineGrad)"
+                      strokeWidth="44"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M 0 150 C 200 250, 300 50, 500 150 C 700 250, 800 50, 1000 150"
+                      fill="none"
+                      stroke="#ffffff"
+                      strokeWidth="6"
+                      strokeDasharray="15 15"
+                      strokeLinecap="round"
+                      opacity="0.8"
+                    />
+                  </svg>
+
+                  {/* Nodes mapped over the path without Start Sign and bottom lock icons */}
+                  {mapNodes.map((node) => (
+                    <div
+                      key={node.id}
+                      onClick={() => navigate(node.route)}
+                      className={`relative flex flex-col items-center w-[160px] z-20 cursor-pointer group ${node.yOffset}`}
+                    >
+                      <div
+                        className={`w-14 h-14 rounded-full ${node.badge} text-white font-black text-2xl flex items-center justify-center border-4 border-white shadow-md relative z-30 -mb-7 group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        0{node.id}
+                      </div>
+                      <div
+                        className={`w-full bg-white rounded-t-full rounded-b-[2.5rem] pt-12 pb-8 px-4 flex flex-col items-center text-center shadow-lg border-2 ${node.cardBorder} border-b-[8px] relative z-20 transition-all duration-300 group-hover:-translate-y-2`}
+                      >
+                        <div
+                          className={`w-16 h-16 rounded-full ${node.iconBg} flex items-center justify-center mb-3 shadow-inner group-hover:scale-110 transition-transform duration-300`}
+                        >
+                          <Icon icon={node.icon} size={32} />
+                        </div>
+                        <h4 className="font-black text-slate-800 text-lg mb-1">
+                          {node.title}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 font-bold leading-tight px-1">
+                          {node.desc}
+                        </p>
                       </div>
                     </div>
-                  )}
+                  ))}
+                </div>
+              </div>
+            </div>
 
-                  <div className="bg-white/20 w-16 h-16 flex items-center justify-center rounded-2xl text-white backdrop-blur-sm shadow-sm flex-shrink-0 border-2 border-white/30 group-hover:scale-110 transition-transform duration-300">
-                    <Icon icon={item.icon} size={32} />
+            {/* Bottom Section Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 px-2 md:px-0 max-w-6xl mx-auto items-stretch">
+              {/* Left Column: Materi Card */}
+              <div className="lg:col-span-4 flex flex-col h-full">
+                {bottomCards.map((card, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-6 md:p-8 rounded-[2.5rem] border-2 shadow-sm flex flex-col h-full justify-between ${card.bg} ${card.border} hover:shadow-lg transition-all group`}
+                  >
+                    <div>
+                      <div className="mb-6">
+                        <div
+                          className={`w-16 h-16 rounded-[1.2rem] flex items-center justify-center shadow-sm bg-white ${card.iconColor} transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 border-2 border-white/50`}
+                        >
+                          <Icon icon={card.icon} size={36} />
+                        </div>
+                      </div>
+                      <h4 className="text-xl md:text-2xl font-black text-slate-800 mb-3">
+                        {card.title}
+                      </h4>
+                      <p className="text-sm md:text-base font-medium text-slate-600 mb-8">
+                        {card.desc}
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => navigate(card.route)}
+                      className={`w-full py-4 rounded-2xl font-black text-sm md:text-base text-white flex items-center justify-center gap-2 transition-transform transform hover:scale-[1.02] shadow-md border-b-[6px] active:border-b-0 active:translate-y-1 ${card.btn}`}
+                    >
+                      {card.button} <Icon icon="lucide:arrow-right" size={18} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Column: Video Inspiratif Playlist Terintegrasi (Tanpa Error Iframe) */}
+              <div className="lg:col-span-8 bg-white border-2 border-slate-100 rounded-[2.5rem] p-6 md:p-8 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-blue-100 text-blue-600 p-2.5 rounded-xl border border-blue-200">
+                      <Icon icon="lucide:clapperboard" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-slate-800">
+                        Video Inspiratif
+                      </h3>
+                      <p className="text-sm text-slate-400 font-medium">
+                        Tonton kisah nyata inspiratif langsung tanpa kendala error!
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex-1 relative z-10 pt-2">
-                    <h3 className="text-2xl md:text-3xl font-black mb-0 leading-none">
-                      {item.title}
-                    </h3>
-                    {item.sub && (
-                      <span className="block text-sm md:text-base font-bold opacity-90 uppercase tracking-wide mb-1">
-                        {item.sub}
+                  {/* Pengganti Iframe: Cover Card Premium interaktif yang membuka tab baru saat di-klik */}
+                  <div 
+                    onClick={() => window.open(`https://www.youtube.com/watch?v=${activeVideo.id}`, "_blank")}
+                    className="w-full rounded-2xl overflow-hidden shadow-md aspect-video relative border-2 border-slate-100 cursor-pointer group/player bg-black"
+                    title="Klik untuk putar di YouTube"
+                  >
+                    {/* Background Thumbnail Video Aktif */}
+                    <img 
+                      src={activeVideo.thumbnail} 
+                      alt={activeVideo.title} 
+                      className="w-full h-full object-cover group-hover/player:scale-105 transition-transform duration-500 opacity-90"
+                    />
+                    
+                    {/* Overlay Gradasi & Konten */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/40 flex flex-col justify-between p-6">
+                      {/* Badge Atas */}
+                      <div className="self-end bg-red-600 text-white px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md">
+                        <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
+                        Putar di YouTube
+                      </div>
+                      
+                      {/* Pulsing Central Play Button */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-16 h-16 md:w-20 md:h-20 bg-white/90 text-red-600 rounded-full flex items-center justify-center shadow-2xl transform group-hover/player:scale-110 transition-transform duration-300 backdrop-blur-sm">
+                          <Icon icon="lucide:play" size={36} className="ml-1.5" />
+                        </div>
+                      </div>
+
+                      {/* Judul & Keterangan di Bagian Bawah */}
+                      <div className="text-left">
+                        <h4 className="text-white text-lg md:text-2xl font-black drop-shadow-md leading-tight line-clamp-2">
+                          {activeVideo.title}
+                        </h4>
+                        <p className="text-white/80 text-xs md:text-sm font-medium mt-1">
+                          Klik di sini untuk langsung menonton dengan lancar 🎬
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Playlist Selector Horizontal */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+                  {videos.map((vid) => (
+                    <div
+                      key={vid.id}
+                      onClick={() => setActiveVideo(vid)}
+                      className={`rounded-2xl p-2 border transition-all cursor-pointer group bg-slate-50 ${activeVideo.id === vid.id ? "border-blue-500 shadow-sm bg-blue-50/40" : "border-slate-100 hover:border-blue-300"}`}
+                    >
+                      <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-200 mb-2">
+                        <img
+                          src={vid.thumbnail}
+                          alt={vid.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        {activeVideo.id !== vid.id && (
+                          <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
+                            <div className="w-8 h-8 bg-white/95 rounded-full flex items-center justify-center text-blue-600 shadow">
+                              <Icon icon="lucide:play" size={14} className="ml-0.5" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <h5 className={`text-xs font-black line-clamp-2 leading-tight ${activeVideo.id === vid.id ? "text-blue-700" : "text-slate-700"}`}>
+                        {vid.title}
+                      </h5>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      // --- COMPONENT: STANDALONE VIDEO INSPIRATIF PAGE ---
+      const VideoInspiratif = ({ navigate }) => {
+        const videos = [
+          {
+            id: "BkaEcGZgIAg",
+            title: "Cara Menjadi Jurnalis ala Najwa Shihab",
+            duration: "07:12",
+            thumbnail: "https://img.youtube.com/vi/BkaEcGZgIAg/hqdefault.jpg",
+          },
+          {
+            id: "qRi9drHS09A",
+            title: "Berani Memulai",
+            duration: "05:12",
+            thumbnail: "https://img.youtube.com/vi/qRi9drHS09A/hqdefault.jpg",
+          },
+          {
+            id: "R81TpCMdAws",
+            title: "Bangkit dari Kegagalan",
+            duration: "04:48",
+            thumbnail: "https://img.youtube.com/vi/R81TpCMdAws/hqdefault.jpg",
+          },
+          {
+            id: "pzP33yqnr70",
+            title: "Terus Melangkah",
+            duration: "06:03",
+            thumbnail: "https://img.youtube.com/vi/pzP33yqnr70/hqdefault.jpg",
+          },
+        ];
+
+        return (
+          <div className="max-w-5xl mx-auto px-4 py-8 fade-in">
+            <div className="text-center mb-10">
+              <div className="bg-blue-100 text-blue-600 w-20 h-20 rounded-[2rem] flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-game">
+                <Icon icon="lucide:clapperboard" size={40} />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-dark mb-2">
+                Video Inspiratif
+              </h2>
+              <p className="text-slate-500 font-bold text-lg">
+                Tonton dan ambil inspirasi dari kisah nyata langsung di YouTube!
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+              {videos.map((vid) => (
+                <div
+                  key={vid.id}
+                  onClick={() => window.open(`https://www.youtube.com/watch?v=${vid.id}`, "_blank")}
+                  className="bg-white rounded-[2rem] p-4 border-2 border-slate-100 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all group cursor-pointer"
+                  title="Klik untuk putar langsung di YouTube"
+                >
+                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-200 mb-4">
+                    <img
+                      src={vid.thumbnail}
+                      alt={vid.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                      <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center text-blue-600 shadow-xl transform group-hover:scale-110 transition-transform backdrop-blur-sm">
+                        <Icon icon="lucide:play" size={28} className="ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="px-2 pb-2">
+                    <h4 className="font-black text-slate-800 text-lg md:text-xl line-clamp-1">
+                      {vid.title}
+                    </h4>
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-lg border border-blue-100">
+                        <Icon
+                          icon="lucide:clock"
+                          size={14}
+                          className="inline-block mr-1 -mt-0.5"
+                        />
+                        {vid.duration}
                       </span>
-                    )}
-                    <p className="text-white/80 text-xs md:text-sm font-bold leading-snug mt-2">
-                      {item.desc}
-                    </p>
+                    </div>
                   </div>
-
-                  {/* Decorative Icon */}
-                  <div className="absolute -bottom-6 -right-6 opacity-10 rotate-12 text-white pointer-events-none group-hover:rotate-0 transition-transform duration-500">
-                    <Icon icon={item.icon} size={120} />
-                  </div>
-                </Card>
+                </div>
               ))}
             </div>
           </div>
         );
       };
 
-      // --- COMPONENT: MATERI PD (FULL CONTENT) ---
+      // --- COMPONENT: MATERI PD ---
       const MateriPD = () => (
         <div className="max-w-3xl mx-auto bg-white p-6 md:p-12 rounded-[2.5rem] shadow-xl border-4 border-white fade-in relative overflow-hidden">
           <div className="text-center mb-12">
@@ -2187,7 +1666,7 @@
                   </p>
                   <p>
                     <strong>💡 Tips:</strong> Cari pola kesamaan. Skill seperti
-                    "disiplin", "fokus", dan "kerja keras" bisa dipakai di mana
+                    "disiplin", "fokus", and "kerja keras" bisa dipakai di mana
                     saja, baik di lapangan olahraga maupun di ruang kelas.
                   </p>
                 </div>
@@ -2211,34 +1690,631 @@
         </div>
       );
 
-      // --- COMPONENT: ABOUT PAGE (FULL CONTENT WITH TABS) ---
-      const About = ({ navigate }) => {
-        const [activeTab, setActiveTab] = useState("app"); // 'app', 'school', or 'developer'
+      // --- COMPONENT: RUANG REFLEKSI ---
+      const RuangRefleksi = ({ navigate }) => {
+        const emojis = ["😊", "😐", "😔", "😮", "💪"];
 
-        // --- PENGATURAN FOTO (GOOGLE PHOTOS DIRECT LINKS) ---
-        // 1. Foto Logo Sekolah (Lingkaran)
+        return (
+          <div className="max-w-3xl mx-auto px-2 md:px-4 py-8 fade-in">
+            <div className="text-center mb-10 relative">
+              <div className="absolute top-0 left-10 text-yellow-400 animate-pulse">
+                <Icon icon="lucide:sparkles" size={32} />
+              </div>
+              <div className="absolute bottom-0 right-10 text-pink-400 animate-bounce">
+                <Icon icon="lucide:heart" size={24} />
+              </div>
+              <div className="bg-yellow-100 w-24 h-24 rounded-[2.5rem] flex items-center justify-center mx-auto mb-4 text-yellow-600 shadow-game border-4 border-white rotate-3">
+                <Icon icon="lucide:book-heart" size={48} />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-dark mb-2">
+                Ruang Refleksi
+              </h2>
+              <p className="text-slate-500 font-bold text-lg px-4 bg-white/50 py-1.5 rounded-full inline-block backdrop-blur-sm border border-white">
+                “Yuk, pahami dirimu setelah belajar!”
+              </p>
+            </div>
+
+            <div className="bg-white rounded-[3rem] p-6 md:p-10 shadow-xl border-4 border-white">
+              <div className="space-y-6 md:space-y-8">
+                {/* Kolom Nama */}
+                <div className="bg-slate-50/50 p-5 rounded-[2rem] border border-slate-200">
+                  <label className="block text-slate-700 font-black text-lg md:text-xl mb-3 flex items-start gap-2">
+                    <span className="bg-slate-400 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5">
+                      <Icon icon="lucide:user" size={16} />
+                    </span>
+                    Nama
+                  </label>
+                  <div className="w-full bg-white/50 border-2 border-slate-200/50 rounded-2xl p-4 font-medium text-slate-500 italic">
+                    Contoh: "Ahmad"
+                  </div>
+                </div>
+
+                <div className="bg-purple-50/50 p-5 rounded-[2rem] border border-purple-100">
+                  <label className="block text-primary font-black text-lg md:text-xl mb-3 flex items-start gap-2">
+                    <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5">
+                      1
+                    </span>
+                    Apa yang kamu pelajari hari ini?
+                  </label>
+                  <div className="w-full bg-white/50 border-2 border-purple-200/50 rounded-2xl p-4 font-medium text-slate-500 italic">
+                    Contoh: "Hari ini aku belajar tentang keyakinan diri dan
+                    cara menghadapi tantangan."
+                  </div>
+                </div>
+
+                <div className="bg-blue-50/50 p-5 rounded-[2rem] border border-blue-100">
+                  <label className="block text-blue-600 font-black text-lg md:text-xl mb-3 flex items-start gap-2">
+                    <span className="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5">
+                      2
+                    </span>
+                    Bagaimana perasaanmu setelah mempelajarinya?
+                  </label>
+                  <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start bg-white/50 p-3 rounded-2xl border-2 border-blue-200/50 w-fit">
+                    {emojis.map((emoji, idx) => (
+                      <span
+                        key={idx}
+                        className="text-4xl md:text-5xl opacity-80 cursor-default"
+                      >
+                        {emoji}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-green-50/50 p-5 rounded-[2rem] border border-green-100">
+                  <label className="block text-green-600 font-black text-lg md:text-xl mb-3 flex items-start gap-2">
+                    <span className="bg-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5">
+                      3
+                    </span>
+                    Apa perubahan yang kamu rasakan setelah belajar materi ini?
+                  </label>
+                  <div className="w-full bg-white/50 border-2 border-green-200/50 rounded-2xl p-4 font-medium text-slate-500 italic">
+                    Contoh: "Aku jadi lebih yakin bahwa aku mampu mencoba
+                    meskipun awalnya ragu."
+                  </div>
+                </div>
+
+                <div className="bg-amber-50/50 p-5 rounded-[2rem] border border-amber-100">
+                  <label className="block text-amber-600 font-black text-lg md:text-xl mb-3 flex items-start gap-2">
+                    <span className="bg-amber-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5">
+                      4
+                    </span>
+                    Hal apa yang ingin kamu coba mulai hari ini?
+                  </label>
+                  <div className="w-full bg-white/50 border-2 border-amber-200/50 rounded-2xl p-4 font-medium text-slate-500 italic">
+                    Contoh: "Aku ingin lebih berani menyampaikan pendapat."
+                  </div>
+                </div>
+
+                <div className="bg-pink-50/50 p-5 rounded-[2rem] border border-pink-100 relative overflow-hidden group">
+                  <Icon
+                    icon="lucide:quote"
+                    size={80}
+                    className="absolute right-2 top-2 text-pink-200 opacity-50 rotate-12 pointer-events-none"
+                  />
+                  <label className="block text-pink-600 font-black text-lg md:text-xl mb-3 flex items-start gap-2 relative z-10">
+                    <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5">
+                      5
+                    </span>
+                    Kalimat penguat untuk diriku:
+                  </label>
+                  <div className="w-full bg-white/50 border-2 border-pink-200/50 rounded-2xl p-4 font-bold italic text-slate-500 text-lg relative z-10">
+                    Contoh: "Aku mampu berkembang sedikit demi sedikit."
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 flex flex-col items-center justify-center pt-8 border-t-2 border-slate-100">
+                <div className="bg-yellow-50 text-yellow-800 font-bold px-6 py-3 rounded-2xl border-2 border-yellow-200 mb-6 text-center shadow-sm">
+                  <Icon
+                    icon="lucide:notebook-pen"
+                    className="inline-block mb-1 mr-2"
+                    size={20}
+                  />
+                  Jawab pertanyaan di atas tulis di buku catatan pribadimu ya!
+                  ✨
+                </div>
+                <button
+                  onClick={() => navigate("home")}
+                  className="game-card bg-white text-dark font-black px-8 py-3.5 rounded-2xl flex items-center justify-center gap-2 border-2 border-slate-200 border-b-4 hover:border-primary hover:border-b-primaryHover hover:text-primary transition-all shadow-sm"
+                >
+                  <Icon icon="lucide:home" size={20} /> Kembali ke Beranda
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      // --- COMPONENT: GAME MAGNITUDE ---
+      const GameMagnitude = ({ navigate }) => {
+        const tokohLinks = [
+          "https://photos.app.goo.gl/cTK4Ee1F3nYAnUMC7",
+          "https://photos.app.goo.gl/T3UigeYk5wQLjVmHA",
+          "https://photos.app.goo.gl/z93moxKC3HRAUWVZ9",
+          "https://photos.app.goo.gl/YLUBbMvfcofzxYFB9",
+          "https://photos.app.goo.gl/7zzChUYzhbzhusrx5",
+          "https://photos.app.goo.gl/EM9MZ1NVnaAZSihB8",
+          "https://photos.app.goo.gl/2276BtKYH1vYQ1XJ6",
+          "https://photos.app.goo.gl/qCtNwdVxkacS3xc26",
+          "https://photos.app.goo.gl/53Hkr9kTB7ad9LLm6",
+          "https://photos.app.goo.gl/XmfE9oe3EAVNDuzm6",
+          "https://photos.app.goo.gl/FAFSvqojatpkP8836",
+          "https://photos.app.goo.gl/3YXrgZDv1fV1Wusc7",
+          "https://photos.app.goo.gl/8m2YBRVMpN9nq9WA6",
+          "https://photos.app.goo.gl/Q7wC9tSE8WfMf4Zr8",
+          "https://photos.app.goo.gl/BccFb9wjHfvQF9vdA"
+        ];
+
+        return (
+          <div className="max-w-6xl mx-auto pt-4 fade-in px-4 pb-12">
+            <div className="text-center mb-10 md:mb-14">
+              <div className="bg-green-100 text-green-600 w-20 h-20 rounded-[2rem] flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-game">
+                <Icon icon="lucide:users" size={40} />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-dark mb-4">
+                Tokoh Inspiratif Indonesia
+              </h2>
+              <p className="text-slate-500 font-bold text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                Mari belajar dari keberanian (Magnitude) para tokoh hebat bangsa ini. Klik setiap kartu untuk melihat figur mereka!
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+              {tokohLinks.map((link, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white rounded-[2rem] p-4 border-2 border-slate-100 shadow-sm hover:shadow-xl hover:border-green-400 transition-all duration-300 group flex flex-col cursor-pointer transform hover:-translate-y-2"
+                  onClick={() => window.open(link, "_blank")}
+                >
+                  <div className="relative rounded-2xl overflow-hidden aspect-square bg-slate-50 border-2 border-green-100/50 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                    <img 
+                      src={link} 
+                      alt={`Tokoh ${index + 1}`}
+                      className="w-full h-full object-cover relative z-0"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        // Gambar fallback jika link yang dipakai bukan direct link (seperti link Google Photos)
+                        e.target.src = `https://ui-avatars.com/api/?name=T+${index + 1}&background=dcfce7&color=166534&size=200&font-size=0.4`;
+                      }}
+                    />
+                    
+                    <div className="absolute inset-0 bg-green-600/0 group-hover:bg-green-600/80 transition-colors duration-300 flex items-center justify-center z-10">
+                      <div className="flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all duration-300">
+                        <Icon icon="lucide:external-link" size={32} className="drop-shadow-md mb-1" />
+                        <span className="font-bold text-sm">Buka Link</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center mt-auto">
+                    <h4 className="font-black text-slate-700 text-lg mb-3">Tokoh {index + 1}</h4>
+                    <button className="w-full py-2.5 bg-green-50 text-green-600 group-hover:bg-green-500 group-hover:text-white border border-green-100 rounded-xl text-sm font-bold uppercase tracking-wider transition-colors shadow-sm">
+                      Lihat Detail
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      // --- COMPONENT: GAME STRENGTH ---
+      const GameStrength = ({ navigate }) => {
+        const STRENGTH_PROMPTS = {
+          think: [
+            'Ceritakan kejadian "gagal" paling memalukan di sekolah, yang sekarang bisa kamu tertawakan.',
+            "Kalau kamu dikritik guru di depan kelas, apa yang kamu rasakan? (Marah, malu, atau tertantang?)",
+            'Apa "lagu kebangsaan" atau playlist yang kamu dengar saat lagi sedih biar semangat lagi?',
+            "Pernah nggak kamu merasa ingin berhenti sekolah? Apa yang bikin kamu tetap bertahan sampai hari ini?",
+            "Seberapa besar pengaruh mood kamu terhadap semangat belajarmu? (Skala 1-10).",
+            "Kapan terakhir kali kamu menangis atau marah karena urusan sekolah?",
+            "Kalau kamu punya kesempatan bicara 1 menit dengan dirimu di masa lalu yang sedang sedih, kamu mau bilang apa?",
+          ],
+          act: [
+            "Pasang wajah paling konyol/jelek ke arah teman-temanmu selama 10 detik. (suruh temanmu tahan tawa).",
+            'Minta teman di sebelah kananmu memberikan satu kritik jujur tentangmu. Jawab dengan "Terima kasih".',
+            'Kirim pesan singkat (WA/Surat) ke orang tua/wali, bilang "Terima kasih sudah biayain aku sekolah".',
+            "Berpura-puralah menjadi motivator terkenal selama 1 menit, beri nasihat ke teman-temanmu.",
+            "Tulis satu ketakutanmu di kertas, remas kertasnya sekuat tenaga, lalu buang ke tong sampah.",
+            "tutup mata lalu Maafkan satu orang yang pernah bikin kamu kesal. (Ucapkan dalam hati).",
+            "Sapa dan ajak ngobrol satu orang di kelas yang jarang kamu ajak ngobrol.",
+          ],
+        };
+
+        const [mode, setMode] = useState(null);
+        const [card, setCard] = useState(null);
+        const [animating, setAnimating] = useState(false);
+        const [availableIndices, setAvailableIndices] = useState({
+          think: [...Array(7).keys()],
+          act: [...Array(7).keys()],
+        });
+        const timeoutRef = useRef(null);
+
+        useEffect(() => {
+          return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          };
+        }, []);
+
+        const generate = (m) => {
+          if (animating) return;
+          setAnimating(true);
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+          timeoutRef.current = setTimeout(() => {
+            let current = [...availableIndices[m]];
+            if (current.length === 0)
+              current = [...Array(STRENGTH_PROMPTS[m].length).keys()];
+
+            const rand = Math.floor(Math.random() * current.length);
+            const idx = current[rand];
+
+            setAvailableIndices((prev) => ({
+              ...prev,
+              [m]: current.filter((i) => i !== idx),
+            }));
+
+            setCard(STRENGTH_PROMPTS[m][idx]);
+            setAnimating(false);
+            timeoutRef.current = null;
+          }, 300);
+        };
+
+        const play = (m) => {
+          setMode(m);
+          generate(m);
+        };
+
+        if (!mode) {
+          return (
+            <div className="max-w-4xl mx-auto text-center pt-8 fade-in px-4">
+              {/* NEW MATERI BLOCK FOR STRENGTH */}
+              <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border-2 border-pink-100 mb-10 flex flex-col md:flex-row gap-6 items-center text-left relative overflow-hidden group hover:border-pink-300 transition-colors">
+                <Icon
+                  icon="lucide:zap"
+                  size={150}
+                  className="absolute -right-10 -bottom-10 opacity-5 rotate-12 text-pink-500 pointer-events-none group-hover:rotate-0 transition-transform duration-500"
+                />
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-pink-100 text-pink-600 rounded-[2rem] flex items-center justify-center shrink-0 border-4 border-white shadow-game z-10 group-hover:scale-110 transition-transform">
+                  <Icon icon="lucide:zap" size={40} />
+                </div>
+                <div className="z-10 flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="bg-pink-100 text-pink-700 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-pink-200 shadow-sm">
+                      Materi Pembelajaran
+                    </span>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black text-pink-900 mb-3">
+                    Strength (Kekuatan Keyakinan)
+                  </h2>
+                  <p className="text-slate-600 font-medium leading-relaxed text-sm md:text-base">
+                    Strength adalah tentang <b>ketahanan mentalmu</b>. Saat
+                    mendapat nilai jelek atau dikritik, apakah kamu langsung
+                    menyerah atau bangkit lagi? Keyakinan yang kuat (Strength
+                    tinggi) akan membantumu bertahan dan sukses!
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <h2 className="text-4xl md:text-5xl font-black text-primary mb-2 text-center">
+                  Pilih Tantangan Strength
+                </h2>
+                <p className="text-xl md:text-2xl font-bold text-slate-500 mb-8 uppercase tracking-wide">
+                  Mental Baja
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <button
+                    onClick={() => play("think")}
+                    className="game-card bg-cyan-50 border-2 border-cyan-200 border-b-cyan-400 active:border-b-0 hover:bg-cyan-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 right-0 p-6 opacity-10 text-cyan-600 group-hover:scale-110 transition-transform">
+                      <Icon icon="lucide:heart-handshake" size={100} />
+                    </div>
+                    <div className="bg-cyan-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-200 border-2 border-white relative z-10">
+                      <Icon icon="lucide:heart-handshake" size={40} />
+                    </div>
+                    <h3 className="text-3xl font-black text-cyan-900 mb-2 relative z-10">
+                      Pikir (Think)
+                    </h3>
+                    <p className="text-cyan-700 text-lg font-medium relative z-10">
+                      Refleksi tentang kekuatan emosi.
+                    </p>
+                  </button>
+                  <button
+                    onClick={() => play("act")}
+                    className="game-card bg-pink-50 border-2 border-pink-200 border-b-pink-400 active:border-b-0 hover:bg-pink-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 right-0 p-6 opacity-10 text-pink-600 group-hover:scale-110 transition-transform">
+                      <Icon icon="lucide:zap" size={100} />
+                    </div>
+                    <div className="bg-pink-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-pink-200 border-2 border-white relative z-10">
+                      <Icon icon="lucide:zap" size={40} />
+                    </div>
+                    <h3 className="text-3xl font-black text-pink-900 mb-2 relative z-10">
+                      Lakukan (Act)
+                    </h3>
+                    <p className="text-pink-700 text-lg font-medium relative z-10">
+                      Tantangan mental juara.
+                    </p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="max-w-xl mx-auto pt-4 fade-in px-4">
+            <div className="flex flex-col items-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-dark flex items-center gap-2 mb-2 justify-center">
+                Mode:{" "}
+                <span
+                  className={`px-4 py-1.5 rounded-full text-xl uppercase font-black tracking-wide ${mode === "think" ? "bg-cyan-100 text-cyan-700 border border-cyan-200" : "bg-pink-100 text-pink-700 border border-pink-200"}`}
+                >
+                  {mode}
+                </span>
+              </h2>
+              <button
+                onClick={() => setMode(null)}
+                className="text-lg font-bold text-slate-400 hover:text-primary transition-colors mt-2"
+              >
+                Ganti Mode
+              </button>
+            </div>
+
+            <div
+              className={`relative overflow-hidden rounded-[2.5rem] p-10 min-h-[350px] flex flex-col items-center justify-center text-center shadow-xl border-4 border-white transition-all duration-500 ${mode === "think" ? "bg-cyan-600" : "bg-pink-500"}`}
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-10 text-white pointer-events-none">
+                <Icon icon="lucide:quote" size={150} />
+              </div>
+              <div
+                className={`transition-all duration-500 transform ${animating ? "opacity-0 translate-y-10 scale-90" : "opacity-100 translate-y-0 scale-100"}`}
+              >
+                <p className="text-3xl md:text-4xl font-black text-white leading-relaxed relative z-10 drop-shadow-md">
+                  "{card}"
+                </p>
+              </div>
+              {availableIndices[mode].length === 0 && (
+                <div className="mt-6 bg-white/20 px-4 py-1 rounded-full text-white text-sm font-bold backdrop-blur-sm border border-white/30">
+                  Kartu diulang
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={() => generate(mode)}
+                className={`game-card px-10 py-4 rounded-2xl font-black text-white shadow-lg flex items-center gap-3 transform active:scale-95 transition-all border-b-4 ${mode === "think" ? "bg-cyan-600 border-b-cyan-800 hover:bg-cyan-700" : "bg-pink-500 border-b-pink-800 hover:bg-pink-600"}`}
+              >
+                <Icon icon="lucide:shuffle" size={24} />{" "}
+                {mode === "think" ? "Pertanyaan Lain" : "Tantangan Lain"}
+              </button>
+            </div>
+          </div>
+        );
+      };
+
+      // --- COMPONENT: GAME GENERALITY ---
+      const GameGenerality = ({ navigate }) => {
+        const GENERALITY_PROMPTS = {
+          think: [
+            "Kalau tidak ada sekolah, kamu ingin belajar tentang apa setiap hari?",
+            "Apa satu bakat unikmu yang teman sekelas belum banyak yang tahu?",
+            "Kalau kamu jadi Kepala Sekolah, ekstrakurikuler apa yang wajib ada?",
+            "Sebutkan satu content creator / Youtuber favoritmu. Apa sisi positif dia yang bisa kamu tiru di sekolah?",
+            "Menurutmu, skill apa yang lebih penting di masa depan?",
+            "Pernah nggak kamu memimpin sebuah tim (di game/olahraga)? Apa rasanya dan bagaimana caranya?",
+            "Kalau kamu harus cari uang sendiri mulai besok, skill apa yang akan kamu jual?",
+          ],
+          act: [
+            "Tulis nama lengkapmu menggunakan tangan kiri (atau tangan non-dominan).",
+            "Promosikan benda di mejamu (pulpen/penghapus) layaknya Salesman profesional selama 1 menit.",
+            "Coba jelaskan hobi kamu ke teman yang tidak mengerti hobi itu, sampai dia paham.",
+            "Sebutkan 5 kegunaan pensil selain untuk menulis (Uji kreativitas).",
+            "Tebak cita-cita teman di sebelah kirimu, tanyakan apakah tebakanmu benar.",
+            "Ajarkan satu trik lifehack atau tips ngerjain tugas cepat ke temanmu yang mereka gatau.",
+            "Akting menjadi guru galak selama 30 detik. (Eksplorasi peran).",
+          ],
+        };
+
+        const [mode, setMode] = useState(null);
+        const [card, setCard] = useState(null);
+        const [animating, setAnimating] = useState(false);
+        const [availableIndices, setAvailableIndices] = useState({
+          think: [...Array(7).keys()],
+          act: [...Array(7).keys()],
+        });
+        const timeoutRef = useRef(null);
+
+        useEffect(() => {
+          return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          };
+        }, []);
+
+        const generate = (m) => {
+          if (animating) return;
+          setAnimating(true);
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+          timeoutRef.current = setTimeout(() => {
+            let current = [...availableIndices[m]];
+            if (current.length === 0)
+              current = [...Array(GENERALITY_PROMPTS[m].length).keys()];
+
+            const rand = Math.floor(Math.random() * current.length);
+            const idx = current[rand];
+
+            setAvailableIndices((prev) => ({
+              ...prev,
+              [m]: current.filter((i) => i !== idx),
+            }));
+
+            setCard(GENERALITY_PROMPTS[m][idx]);
+            setAnimating(false);
+            timeoutRef.current = null;
+          }, 300);
+        };
+
+        const play = (m) => {
+          setMode(m);
+          generate(m);
+        };
+
+        if (!mode) {
+          return (
+            <div className="max-w-4xl mx-auto text-center pt-8 fade-in px-4">
+              {/* NEW MATERI BLOCK FOR GENERALITY */}
+              <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border-2 border-blue-100 mb-10 flex flex-col md:flex-row gap-6 items-center text-left relative overflow-hidden group hover:border-blue-300 transition-colors">
+                <Icon
+                  icon="lucide:globe"
+                  size={150}
+                  className="absolute -right-10 -bottom-10 opacity-5 rotate-12 text-blue-500 pointer-events-none group-hover:rotate-0 transition-transform duration-500"
+                />
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-blue-100 text-blue-600 rounded-[2rem] flex items-center justify-center shrink-0 border-4 border-white shadow-game z-10 group-hover:scale-110 transition-transform">
+                  <Icon icon="lucide:globe" size={40} />
+                </div>
+                <div className="z-10 flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="bg-blue-100 text-blue-700 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-blue-200 shadow-sm">
+                      Materi Pembelajaran
+                    </span>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black text-blue-900 mb-3">
+                    Generality (Luas Bidang)
+                  </h2>
+                  <p className="text-slate-600 font-medium leading-relaxed text-sm md:text-base">
+                    Generality mengukur <b>seberapa luas</b> keyakinan dirimu.
+                    Apakah kamu cuma pede di satu pelajaran aja (jago kandang),
+                    atau bisa menyebarkan rasa pede itu ke pelajaran lain?
+                    Kemampuan ini membantumu jadi serba bisa!
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <h2 className="text-4xl md:text-5xl font-black text-primary mb-2 text-center">
+                  Pilih Tantangan Generality
+                </h2>
+                <p className="text-xl md:text-2xl font-bold text-slate-500 mb-8 uppercase tracking-wide">
+                  Jago Banyak Medan
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <button
+                    onClick={() => play("think")}
+                    className="game-card bg-emerald-50 border-2 border-emerald-200 border-b-emerald-400 active:border-b-0 hover:bg-emerald-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 right-0 p-6 opacity-10 text-emerald-600 group-hover:scale-110 transition-transform">
+                      <Icon icon="lucide:lightbulb" size={100} />
+                    </div>
+                    <div className="bg-emerald-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-emerald-200 border-2 border-white relative z-10">
+                      <Icon icon="lucide:lightbulb" size={40} />
+                    </div>
+                    <h3 className="text-3xl font-black text-emerald-900 mb-2 relative z-10">
+                      Pikir (Think)
+                    </h3>
+                    <p className="text-emerald-700 text-lg font-medium relative z-10">
+                      Eksplorasi ide dan wawasan.
+                    </p>
+                  </button>
+                  <button
+                    onClick={() => play("act")}
+                    className="game-card bg-amber-50 border-2 border-amber-200 border-b-amber-400 active:border-b-0 hover:bg-amber-100 rounded-3xl p-8 text-left transition-all relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 right-0 p-6 opacity-10 text-amber-600 group-hover:scale-110 transition-transform">
+                      <Icon icon="lucide:palette" size={100} />
+                    </div>
+                    <div className="bg-amber-500 text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-amber-200 border-2 border-white relative z-10">
+                      <Icon icon="lucide:palette" size={40} />
+                    </div>
+                    <h3 className="text-3xl font-black text-amber-900 mb-2 relative z-10">
+                      Lakukan (Act)
+                    </h3>
+                    <p className="text-amber-700 text-lg font-medium relative z-10">
+                      Uji kreativitas dan bakat.
+                    </p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="max-w-xl mx-auto pt-4 fade-in px-4">
+            <div className="flex flex-col items-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-dark flex items-center gap-2 mb-2 justify-center">
+                Mode:{" "}
+                <span
+                  className={`px-4 py-1.5 rounded-full text-xl uppercase font-black tracking-wide ${mode === "think" ? "bg-emerald-100 text-emerald-700 border border-emerald-200" : "bg-amber-100 text-amber-700 border border-amber-200"}`}
+                >
+                  {mode}
+                </span>
+              </h2>
+              <button
+                onClick={() => setMode(null)}
+                className="text-base font-bold text-slate-400 hover:text-primary transition-colors"
+              >
+                Ganti Mode
+              </button>
+            </div>
+
+            <div
+              className={`relative overflow-hidden rounded-[2.5rem] p-10 min-h-[350px] flex flex-col items-center justify-center text-center shadow-xl border-4 border-white transition-all duration-500 ${mode === "think" ? "bg-emerald-600" : "bg-amber-500"}`}
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-10 text-white pointer-events-none">
+                <Icon icon="lucide:quote" size={150} />
+              </div>
+              <div
+                className={`transition-all duration-500 transform ${animating ? "opacity-0 translate-y-10 scale-90" : "opacity-100 translate-y-0 scale-100"}`}
+              >
+                <p className="text-3xl md:text-4xl font-black text-white leading-relaxed relative z-10 drop-shadow-md">
+                  "{card}"
+                </p>
+              </div>
+              {availableIndices[mode].length === 0 && (
+                <div className="mt-6 bg-white/20 px-4 py-1 rounded-full text-white text-sm font-bold backdrop-blur-sm border border-white/30">
+                  Kartu diulang
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={() => generate(mode)}
+                className={`game-card px-10 py-4 rounded-2xl font-black text-white shadow-lg flex items-center gap-3 transform active:scale-95 transition-all border-b-4 ${mode === "think" ? "bg-emerald-600 border-b-emerald-800 hover:bg-emerald-700" : "bg-amber-500 border-b-amber-800 hover:bg-amber-600"}`}
+              >
+                <Icon icon="lucide:shuffle" size={24} />{" "}
+                {mode === "think" ? "Pertanyaan Lain" : "Tantangan Lain"}
+              </button>
+            </div>
+          </div>
+        );
+      };
+
+      // --- COMPONENT: ABOUT PAGE ---
+      const About = ({ navigate }) => {
+        const [activeTab, setActiveTab] = useState("app");
+
         const fotoSekolahURL =
           "https://lh3.googleusercontent.com/pw/AP1GczN3Hv6EXAaU65jKG-QbfShO0obtpUm1dPiNThVb0xobWLcMCixpfNMMz8amBkMCUq6J8v8g3SIf9UnS-tGu4YwijbXkmqgtlIUwkP6icTbrg0WKq9worKrgNvnbSo6Nwj1g5SEcbK9crPG6GcyS3rFE=w320-h320-s-no-gm?authuser=0";
-
-        // 2. Foto Background Profil Sekolah (Latar Belakang Kartu)
-        // Tips: Gunakan foto gedung sekolah yang lebar (Landscape) agar lebih bagus.
         const backgroundSekolahURL =
           "https://lh3.googleusercontent.com/pw/AP1GczP2TYOfwrLms7WnZV8FLEi1MGzSp3__zRl8ABz7-FSaqLl9PCVJ02_ToyQzYyQbOqP6Ac_4mh6yxJJrhsb7OALj_msnK8EvwJpJ7NQke52ZsRoHMJNeaAcymd4u8OUvmKraW68PL4fYNzdvbNU-i-bz=w700-h466-s-no-gm?authuser=0";
-
-        // 3. Foto Profil Pengembang (Marchella)
         const fotoPengembangURL =
           "https://lh3.googleusercontent.com/pw/AP1GczOYV7O8CIhv9m4y4Iz0McWQkLymY4xQCQULSQUY3bq6xFOJP8C0WBEJkx1fxCjmojxDsJCtMeW7F1XWfYEWMfajm_HpntoksXyL1ETz56p6P1f_3VYNnYo314EIo9Yy2Zuc10pRpTIr_y42HgjuCDE_=w799-h812-s-no-gm?authuser=0";
 
         return (
           <div className="max-w-4xl mx-auto px-4 py-4 fade-in">
-            {/* TAB NAVIGATION */}
             <div className="flex justify-center mb-8 overflow-x-auto">
               <div className="bg-white p-1.5 rounded-2xl border-2 border-purple-100 shadow-sm flex whitespace-nowrap">
                 <button
                   onClick={() => setActiveTab("app")}
                   className={`px-4 md:px-6 py-2 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2 ${activeTab === "app" ? "bg-primary text-white shadow-md" : "text-slate-500 hover:text-primary"}`}
                 >
-                  <Icon icon="lucide:info" size={18} />{" "}
+                  <Icon icon="lucide:info" size={18} />
                   <span className="hidden md:inline">Tentang</span> Aplikasi
                 </button>
                 <button
@@ -2257,7 +2333,6 @@
             </div>
 
             <div className="bg-white/90 backdrop-blur-xl rounded-[3rem] p-8 md:p-12 shadow-xl border-4 border-white min-h-[600px]">
-              {/* TAB CONTENT: APLIKASI */}
               {activeTab === "app" && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="text-center mb-12">
@@ -2287,7 +2362,6 @@
                       </p>
                     </div>
 
-                    {/* KEUNGGULAN SECTION */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="bg-white p-8 rounded-[2.5rem] border-2 border-purple-100 shadow-sm flex flex-col h-full hover:shadow-lg transition-shadow">
                         <h3 className="font-bold text-primary mb-6 flex items-center justify-center gap-2 text-xl md:text-2xl text-center">
@@ -2384,11 +2458,9 @@
                 </div>
               )}
 
-              {/* TAB CONTENT: PROFIL SEKOLAH */}
               {activeTab === "school" && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="text-center mb-10">
-                    {/* FOTO SEKOLAH (Lingkaran Atas) */}
                     <div className="w-32 h-32 rounded-3xl mx-auto mb-6 shadow-game border-4 border-white overflow-hidden bg-green-100 flex items-center justify-center relative group">
                       <img
                         src={fotoSekolahURL}
@@ -2409,19 +2481,16 @@
                     </p>
                   </div>
 
-                  {/* KARTU DESKRIPSI DENGAN BACKGROUND FOTO TERPISAH */}
                   <div
                     className="relative p-8 rounded-[2.5rem] border-4 border-white overflow-hidden shadow-game mb-8 min-h-[300px] flex items-center justify-center group"
                     style={{
-                      backgroundImage: `url(${backgroundSekolahURL})`, // Menggunakan variabel khusus background
+                      backgroundImage: `url(${backgroundSekolahURL})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}
                   >
-                    {/* Overlay Gelap agar teks terbaca */}
                     <div className="absolute inset-0 bg-gradient-to-br from-green-900/85 to-green-800/75 transition-all duration-500"></div>
 
-                    {/* Decorative Icon */}
                     <div className="absolute top-[-20px] right-[-20px] opacity-10 text-white pointer-events-none rotate-12">
                       <Icon icon="lucide:graduation-cap" size={200} />
                     </div>
@@ -2438,7 +2507,6 @@
                     </div>
                   </div>
 
-                  {/* --- SEJARAH SINGKAT (EXPANDED) --- */}
                   <div className="bg-white p-8 rounded-[2.5rem] border-2 border-green-100 shadow-sm mb-8 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-6 opacity-5 text-green-600 pointer-events-none">
                       <Icon icon="lucide:history" size={120} />
@@ -2574,7 +2642,6 @@
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    {/* VISI */}
                     <div className="bg-white p-6 rounded-[2rem] border-2 border-green-200 shadow-sm flex flex-col items-center text-center hover:border-green-400 transition-colors">
                       <div className="bg-green-100 p-3 rounded-full text-green-600 mb-4">
                         <Icon icon="lucide:target" size={28} />
@@ -2589,7 +2656,6 @@
                       </p>
                     </div>
 
-                    {/* MISI */}
                     <div className="bg-white p-6 rounded-[2rem] border-2 border-green-200 shadow-sm flex flex-col items-center text-center hover:border-green-400 transition-colors">
                       <div className="bg-green-100 p-3 rounded-full text-green-600 mb-4">
                         <Icon icon="lucide:list-checks" size={28} />
@@ -2616,7 +2682,6 @@
                     </div>
                   </div>
 
-                  {/* LOKASI & KONTAK SOSIAL */}
                   <div className="bg-white p-6 rounded-[2rem] border-2 border-green-200 shadow-sm text-center">
                     <h4 className="font-black text-green-800 mb-2 flex items-center justify-center gap-2 text-xl md:text-2xl">
                       <Icon icon="lucide:map-pin" size={24} /> Lokasi & Kontak
@@ -2629,9 +2694,7 @@
                       Kota Cimahi
                     </p>
 
-                    {/* SOCIAL MEDIA ICONS */}
                     <div className="flex justify-center gap-4 pt-6 border-t-2 border-green-100">
-                      {/* Instagram */}
                       <a
                         href="https://www.instagram.com/smkdarussurur_official/#"
                         target="_blank"
@@ -2640,8 +2703,6 @@
                       >
                         <Icon icon="cib:instagram" size={24} />
                       </a>
-
-                      {/* WhatsApp */}
                       <a
                         href="https://api.whatsapp.com/send/?phone=6283174871460&text&type=phone_number&app_absent=0"
                         target="_blank"
@@ -2650,8 +2711,6 @@
                       >
                         <Icon icon="cib:whatsapp" size={24} />
                       </a>
-
-                      {/* Email */}
                       <a
                         href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=mailto:info@smkplusdarussurur.sch.id"
                         target="_blank"
@@ -2665,11 +2724,9 @@
                 </div>
               )}
 
-              {/* TAB CONTENT: PROFIL PENGEMBANG (BARU) */}
               {activeTab === "developer" && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="text-center mb-10">
-                    {/* FOTO PENGEMBANG */}
                     <div className="w-36 h-36 rounded-full mx-auto mb-6 shadow-game border-4 border-white overflow-hidden bg-indigo-100 flex items-center justify-center relative group">
                       <img
                         src={fotoPengembangURL}
@@ -2812,6 +2869,77 @@
         </div>
       );
 
+      // --- COMPONENT: CURHAT ANONYM ---
+      const CurhatAnonym = ({ navigate }) => (
+        <div className="flex flex-col items-center justify-center min-h-[50vh] py-10 px-4 text-center fade-in">
+          <div className="w-full max-w-lg mb-6 text-left">
+            <button
+              onClick={() => navigate("efikasi-diri")}
+              className="game-card flex items-center gap-2 text-slate-600 hover:text-white hover:bg-primary bg-white px-5 py-2.5 rounded-full border-b-4 border-slate-200 hover:border-b-primaryHover font-bold transition-all text-lg"
+            >
+              <Icon icon="lucide:arrow-left" size={24} /> Kembali
+            </button>
+          </div>
+          <div className="bg-gradient-to-br from-pink-400 to-purple-500 p-8 md:p-12 rounded-[2.5rem] shadow-xl border-4 border-white max-w-xl w-full relative overflow-hidden text-white">
+            <Icon icon="lucide:ghost" size={120} className="absolute -right-10 -bottom-10 opacity-20 rotate-12" />
+            <div className="bg-white/20 w-24 h-24 mx-auto rounded-3xl flex items-center justify-center mb-6 shadow-game border-2 border-white/50 backdrop-blur-sm">
+              <Icon icon="lucide:message-circle-heart" size={56} className="text-white" />
+            </div>
+            <h3 className="text-3xl md:text-4xl font-black mb-4 drop-shadow-md">
+              Ruang Rahasia
+            </h3>
+            <p className="text-white/90 leading-relaxed mb-8 font-medium text-lg">
+              Kamu akan diarahkan ke form rahasia. Jangan khawatir, identitasmu tidak akan kami kumpulkan. Bebaskan pikiranmu!
+            </p>
+            <button
+              onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSeCi53GQvR1iKY7n70WpvhB9i4ekyGFA_aaYilMQK7dsFYKMQ/viewform?usp=header", "_blank")}
+              className="game-card w-full bg-white text-purple-600 hover:bg-purple-50 py-4 rounded-2xl font-black shadow-lg flex items-center justify-center gap-2 text-xl border-b-4 border-purple-200"
+            >
+              Buka Form Curhat <Icon icon="lucide:external-link" size={24} />
+            </button>
+          </div>
+        </div>
+      );
+
+      // --- COMPONENT: FINISH REWARD ---
+      const FinishReward = ({ navigate }) => (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] py-10 px-4 text-center fade-in">
+          <div className="bg-white p-8 md:p-14 rounded-[3rem] shadow-2xl border-4 border-yellow-200 max-w-3xl w-full relative overflow-hidden">
+            {/* Dekorasi Latar Belakang */}
+            <Icon icon="twemoji:confetti-ball" size={80} className="absolute -top-4 -left-4 opacity-50 rotate-12" />
+            <Icon icon="lucide:sparkles" size={60} className="absolute top-10 right-10 text-yellow-300 animate-pulse" />
+            <Icon icon="lucide:star" size={40} className="absolute bottom-10 left-10 text-orange-300 animate-bounce" />
+
+            {/* Animasi Piala */}
+            <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-8">
+              <div className="absolute inset-0 bg-yellow-200 rounded-full animate-ping opacity-50"></div>
+              <div className="relative bg-gradient-to-tr from-yellow-300 to-yellow-500 w-full h-full rounded-full flex items-center justify-center shadow-game border-4 border-white">
+                <Icon icon="twemoji:trophy" size={80} className="drop-shadow-lg animate-bounce" />
+              </div>
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500 mb-6 drop-shadow-sm pb-2">
+              Selamat! Kamu Hebat!
+            </h2>
+
+            {/* Pesan Inspiratif */}
+            <div className="bg-orange-50/80 p-6 md:p-8 rounded-[2rem] border-2 border-orange-200 relative mt-4">
+              <Icon icon="lucide:quote" size={60} className="absolute -top-6 -left-2 text-orange-200 opacity-60" />
+              <p className="text-slate-700 font-bold text-base md:text-lg md:text-xl leading-relaxed italic relative z-10 text-justify md:text-center">
+                “Semoga setelah pembelajaran ini, kita semakin percaya bahwa kemampuan bukan tentang siapa yang paling hebat, tapi siapa yang mau terus mencoba, bertahan, dan percaya pada dirinya sendiri. Karena self-efficacy adalah kompas kecil dalam diri yang membuat langkah terasa lebih berani.” ✨
+              </p>
+            </div>
+            
+            <button
+              onClick={() => navigate("home")}
+              className="game-card mt-10 bg-primary hover:bg-primaryHover text-white px-8 py-4 rounded-full font-black text-lg shadow-lg flex items-center justify-center gap-2 mx-auto border-b-4 border-purple-800"
+            >
+              Kembali ke Beranda <Icon icon="lucide:home" size={24} />
+            </button>
+          </div>
+        </div>
+      );
+
       // --- APP ROUTER ---
       const App = () => {
         const [history, setHistory] = useState([{ name: "home", data: null }]);
@@ -2843,6 +2971,8 @@
               return <BidangPribadi navigate={navigate} />;
             case "efikasi-diri":
               return <KepercayaanDiri navigate={navigate} />;
+            case "video-inspiratif":
+              return <VideoInspiratif navigate={navigate} />;
             case "game-magnitude":
               return <GameMagnitude navigate={navigate} />;
             case "game-strength":
@@ -2857,6 +2987,10 @@
               return <Contact navigate={navigate} />;
             case "curhat-anonym":
               return <CurhatAnonym navigate={navigate} />;
+            case "ruang-refleksi":
+              return <RuangRefleksi navigate={navigate} />;
+            case "finish-reward":
+              return <FinishReward navigate={navigate} />;
             case "feature-locked":
               return <FeatureLocked feature={data} navigate={navigate} />;
             default:
